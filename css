@@ -1,0 +1,75 @@
+.container{
+    width: 480px;
+    height: 800px;
+    border: 1px solid lightgray;
+    margin: 50px auto;
+    position: relative;
+}
+
+.pink-box {
+    height: 500px;
+    background-color: pink;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0 50px;
+}
+
+.line {
+    margin-bottom: 10px;
+    color: white;
+}
+
+.white-box {
+    height: 300px;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 0 100px;
+}
+
+.profile-message {
+    text-align: center;
+    color: white;
+}
+
+.image {
+    width: 300px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    font-size: 10pt;
+}
+
+.chat-icon {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.profile-icon {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.qutate-icon {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.photo1 {
+    width: 120px;
+    height: 100px;
+    top: 450px;
+    left: 190px;
+    object-fit: cover;
+    border-radius: 50%;
+    position: absolute;
+}
