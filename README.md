@@ -39,5 +39,7 @@ Common : Git, Github, Slack, Notion
 * 키워드 검색 및 위치 설정
 * 스크롤 및 고정바 구현
 
+### Wireframe(https://www.figma.com/file/1R9xvf8tuy3OasihqDiSSs/%EC%9D%B8%EC%8A%A4%ED%83%80%EA%B7%B8%EB%9E%A8-%ED%81%B4%EB%A1%A0-%EC%BD%94%EB%94%A9?node-id=0%3A1)
+
 ### 📌AWS EC2 업로드 / Link
 
