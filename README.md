@@ -18,7 +18,7 @@
 ### 적용기술 및 구현 기능 적용 기술
 Front-End : JavaScript, HTML&CSS\
 Back-End : Django, Python\
-Common : Git, Github, Slack, Notion\
+Common : Git, Github, Slack, Notion
 
 ### 📌 주요 기능
 ## 로그인/회원가입
