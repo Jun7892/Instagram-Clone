@@ -1,7 +1,7 @@
 # 7조 프로젝트 - Instagram
 
 ### 🏠 소개
-   내일배움캠프에서 진행중인 Instagram 화면 구현 프로젝트입니다.
+   내일배움캠프에서 진행중인 Instagram 화면 구현 프로젝트입니다.\
    인스타 화면을 구현하고 더 효율적이고 흥미를 유발할 수 있는 요소들을 적용함으로써 새로운 화면을 만드는 것
 
 
@@ -16,9 +16,9 @@
 * EC2 : 최인호
  
 ### 적용기술 및 구현 기능 적용 기술
-Front-End : JavaScript, HTML&CSS
-Back-End : Django, Python
-Common : Git, Github, Slack, Notion
+Front-End : JavaScript, HTML&CSS\
+Back-End : Django, Python\
+Common : Git, Github, Slack, Notion\
 
 ### 📌 주요 기능
 ## 로그인/회원가입
