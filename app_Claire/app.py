@@ -29,7 +29,8 @@ def home():
 		# 암호화되어있는 token의 값을 우리가 사용할 수 있도록 디코딩(암호화 풀기)해줍니다!
         payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
         user_info = db.user.find_one({"id": payload['id']})
-        return render_template('index.html', nickname=user_info["nick"])
+        # return render_template('index.html', nickname=user_info["nick"])
+        return render_template('main.html', nickname=user_info["nick"])
 		# 만약 해당 token의 로그인 시간이 만료되었다면, 아래와 같은 코드를 실행합니다.
     except jwt.ExpiredSignatureError:
         return redirect(url_for("login"))
@@ -45,10 +46,17 @@ def login():
     return render_template('login.html', msg=msg)
 
 
-@app.route('/register')
+@app.route('/register/', methods=['GET'])
 def register():
     return render_template('register.html')
 
+@app.route('/main')
+def main():
+    return render_template('main.html')
+
+@app.route('/index')
+def index():
+    return render_template('main.html')
 
 #################################
 ##  로그인을 위한 API            ##
@@ -128,6 +136,9 @@ def api_valid():
         return jsonify({'result': 'fail', 'msg': '로그인 시간이 만료되었습니다.'})
     except jwt.exceptions.DecodeError:
         return jsonify({'result': 'fail', 'msg': '로그인 정보가 존재하지 않습니다.'})
+
+
+
 
 
 if __name__ == '__main__':

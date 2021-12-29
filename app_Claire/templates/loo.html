@@ -1,10 +1,10 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
 
     <!-- Webpage Title -->
-    <title>루피스타그램 로그인</title>
+    <title>Hello, world!</title>
 
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -12,32 +12,16 @@
 
     <!-- Bulma CSS 링크 -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
-
-    <style>
-        .button.is-primary {
-            background-color: #00d1b2;
-            border-color: transparent;
-            color: #fff;
-            width: 175px;
-        }
-
-        .button.is-primary.sign-in {
-            background-color: #ffffff;
-            border-color: #00d1b2;
-            color: #00d1b2;
-            width: 175px;
-        }
-    </style>
 
     <!-- JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+
 
     <script>
         {% if msg %}
         alert("{{ msg }}")
         {% endif %}
-
         // ['쿠키'라는 개념에 대해 알아봅시다]
         // 로그인을 구현하면, 반드시 쿠키라는 개념을 사용합니다.
         // 페이지에 관계없이 브라우저에 임시로 저장되는 정보입니다. 키:밸류 형태(딕셔너리 형태)로 저장됩니다.
@@ -68,9 +52,6 @@
 
 </head>
 
-
-
-
 <body>
     <div class="section has-text-centered">
         <h1 class="title">로그인 페이지</h1>
@@ -100,15 +81,7 @@
                     </div>
                 </div>
             </div>
-            <button class="button is-primary " onclick="login()">로그인</button>
-
-
-
-
-
-
-            <button class="button is-primary" onclick='window.location.href = "/register"'>회원가입</button>
-
+            <button class="button is-primary" onclick="login()">로그인</button>
         </div>
     </div>
 </body>
