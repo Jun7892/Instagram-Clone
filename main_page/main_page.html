@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="mobile.css">
+    <link rel="stylesheet" media="(min-width: 860px)" href="desktop.css">
+<!--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>-->
+    <title>insta</title>
+</head>
+
+<!--<script>-->
+
+<!--$(".content")-->
+<!--    .on("dragover", dragOver)-->
+<!--    .on("dragleave", dragOver)-->
+<!--    .on("drop", uploadFiles);-->
+
+<!--function dragOver(e){-->
+<!--    e.stopPropagation();-->
+<!--    e.preventDefault();-->
+<!--}-->
+<!--function uploadFiles(e){-->
+<!--    e.stopPropagation();-->
+<!--    e.preventDefault();-->
+<!--}-->
+<!--function dragOver(e) {-->
+<!--    e.stopPropagation();-->
+<!--    e.preventDefault();-->
+<!--    if (e.type == "dragover") {-->
+<!--        $(e.target).css({-->
+<!--            "background-color": "black",-->
+<!--            "outline-offset": "-20px"-->
+<!--        });-->
+<!--    } else {-->
+<!--        $(e.target).css({-->
+<!--            "background-color": "gray",-->
+<!--            "outline-offset": "-10px"-->
+<!--        });-->
+<!--    }-->
+<!--}-->
+<!--function uploadFile(e) {-->
+<!--    e.stopPropagation();-->
+<!--    e.preventDefault();-->
+<!--    dragOver(e);-->
+
+<!--    e.dataTransfer = e.originalEvent.dataTransfer;-->
+<!--    var files = e.target.files \\ e.dataTransfer.files;-->
+
+<!--    if (files.length > 1) {-->
+<!--        alert('JUST ONE!')-->
+<!--        return;-->
+<!--    }-->
+<!--}-->
+<!--</script>-->
+
+<!--                        <p>사진과 동영상을 여기에 끌어다 놓으세요!</p>-->
+<!--                        <div class="content"></div>-->
+
+<!--&lt;!&ndash;'home' image click -> 메인페이지 로 돌아감!-->
+<!--&lt;!&ndash;'dm' image click -> 'dm' 메세지 창 뜨고 -> 'home' image click 시 다시 메인 화면으로!&ndash;&gt;-->
+<!--&lt;!&ndash;'+' image click -> 'Drag & Drop' 뜨고 누르면 이미지 저장!(https://kutar37.tistory.com/entry/HTML5-Javasciprt-DragDrop-%EA%B5%AC%ED%98%84-%EC%98%88%EC%A0%9C)&ndash;&gt;-->
+
+
+
+<body>
+<!--헤더-->
+    <div id="main">
+        <div id="mobile-header">
+            <img class="header-icon" src="img/camera@3x.png" />
+            <img id="logo" src="img/insta-logo.png" />
+            <img class="header-icon" src="img/dm@3x.png" />
+        </div>
+        <div id="desktop-header">
+            <div id="desktop-header-wrapper">
+                <div id="logo-wrapper">
+                    <img src="img/insta-logo.png" />
+                </div>
+                <div id="search-wrapper">
+                    <img src="img/search@3x.png">
+                    <p>검색</p>
+                </div>
+                <div id="header-icon-wrapper">
+                    <img class="header-icon" "content" src="img/home@3x.png" />
+                    <img class="header-icon" src="img/dm@3x.png" />
+<!--                    <input type="image"  src="img/trending@3x.png" />-->
+                    <img class="header-icon" src="img/trending@3x.png" />
+                    <img class="header-icon" src="img/like@3x.png" />
+                    <img class="header-icon" src="img/more@3x.png" />
+                </div>
+            </div>
+        </div>
+<!--컨테이너-->
+        <div id="container">
+            <div id="main-container">
+<!--스토리 컨테이너                -->
+                <div id="story-container">
+                    <div class="story-wrapper">
+                        <div class="story-off">
+                            <img src="img/xmas.jpg"/>
+                        </div>
+                        <p>내 스토리</p>
+                    </div>
+                    <div class="story-wrapper">
+                        <div class="story-on">
+                            <img src="img/xmas.jpg"/>
+                        </div>
+                        <p>내 스토리</p>
+                    </div>
+                    <div class="story-wrapper">
+                        <div class="story-on">
+                            <img src="img/xmas.jpg"/>
+                        </div>
+                        <p>내 스토리</p>
+                    </div>
+                    <div class="story-wrapper">
+                        <div class="story-off">
+                            <img src="img/xmas.jpg"/>
+                        </div>
+                        <p>내 스토리</p>
+                    </div>
+                    <div class="story-wrapper">
+                        <div class="story-off">
+                            <img src="img/xmas.jpg"/>
+                        </div>
+                        <p>내 스토리</p>
+                    </div>
+                    <div class="story-wrapper">
+                        <div class="story-off">
+                            <img src="img/xmas.jpg"/>
+                        </div>
+                        <p>내 스토리</p>
+                    </div>
+                    <div class="story-wrapper">
+                        <div class="story-off">
+                            <img src="img/xmas.jpg"/>
+                        </div>
+                        <p>내 스토리</p>
+                    </div>
+                    <div class="story-wrapper">
+                        <div class="story-off">
+                            <img src="img/xmas.jpg"/>
+                        </div>
+                        <p>내 스토리</p>
+                    </div>
+                    <div class="story-wrapper">
+                        <div class="story-off">
+                            <img src="img/xmas.jpg"/>
+                        </div>
+                        <p>내 스토리</p>
+                    </div>
+                    <div class="story-wrapper">
+                        <div class="story-off">
+                            <img src="img/xmas.jpg"/>
+                        </div>
+                        <p>내 스토리</p>
+                    </div>
+                </div>
+<!--포스트 컨테이너                -->
+                <div id="post-container">
+                    <div class="post-wrapper">
+<!--포스트 헤더                        -->
+                        <div class="post-header">
+                            <div class="left-wrapper">
+                                <img src="asdf.jpeg"/>
+                                <p>이용자5</p>
+                            </div>
+                            <div class="right-wrapper">
+                                <img src="img/more@3x.png">
+                            </div>
+                        </div>
+<!--포스트 바디                        -->
+                        <div class="post-body">
+                            <img src="img/xmas.jpg">
+                            <div class="post-icons-wrapper">
+                                <div class="left-wrapper">
+                                    <img class="post-icon" src="img/like@3x.png">
+                                    <img class="post-icon-2" src="img/comment@3x.png">
+                                    <img class="post-icon" src="img/dm@3x.png">
+                                </div>
+                                <div class="right-wrapper">
+                                    <img src="img/favorite@3x.png">
+                                </div>
+                            </div>
+                        </div>
+<!--포스트 푸터                        -->
+                        <div class="post-footer">
+                            <div class="post-like-wrapper">
+                                <img src="img/xmas.jpg">
+                                <p><b>이용자</b>님 <b>외 6,671명</b>이 좋아합니다</p>
+                            </div>
+                            <div class="post-content-wrapper">
+                                <p class="post-author">이용자</p>
+                                <p class="post-content">안녕하세요</p>
+                            </div>
+                             <p class="post-time">
+                                8시간 전</p>
+                        </div>
+                    </div>
+<!-- 포스트 헤더                   -->
+                    <div class="post-wrapper">
+                        <div class="post-header">
+                            <div class="left-wrapper">
+                                <img src="img/xmas.jpg"/>
+                                <p>이용자5</p>
+                            </div>
+                            <div class="right-wrapper">
+                                <img src="img/more@3x.png">
+                            </div>
+                        </div>
+<!-- 포스트 바디                       -->
+                        <div class="post-body">
+                            <img src="img/xmas.jpg">
+                            <div class="post-icons-wrapper">
+                                <div class="left-wrapper">
+                                    <img class="post-icon" src="img/like@3x.png">
+                                    <img class="post-icon-2" src="img/comment@3x.png">
+                                    <img class="post-icon" src="img/dm@3x.png">
+                                </div>
+                                <div class="right-wrapper">
+                                    <img src="img/favorite@3x.png">
+                                </div>
+                            </div>
+                        </div>
+<!-- 포스트 푸터                 -->
+                        <div class="post-footer">
+                            <div class="post-like-wrapper">
+                                <img src="img/xmas.jpg">
+                                <p><strong>이용자</strong>님 <strong>외 6,671명</strong>이 좋아합니다</p>
+                            </div>
+                            <div class="post-content-wrapper">
+                                <p class="post-author">이용자</p>
+                                <p class="post-content">안녕하세요</p>
+                            </div>
+                            <p class="post-time">
+                                8시간 전</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+<!--서브 컨테이너            -->
+            <div id="sub-container">
+<!-- 서브 컨데이너 헤더               -->
+                <div id="sub-icon-header">
+                    <p id="sub-header-text">회원님을 위한 추천</p>
+                    <p id="sub-header-text-2">모두 보기</p>
+                </div>
+<!-- 서브 컨테이너 아이콘              -->
+                <div id="sub-icon-wrapper">
+                    <div class="sub-item">
+                        <div class="sub-item-user">
+                            <img src="img/xmas.jpg">
+                            <div class="sub-item-text">
+                                <p class="sub-item-name">이용자1</p>
+                                <p class="sub-item-follower">이용자님이 팔로우합니다</p>
+                            </div>
+                        </div>
+                        <p class="sub-item-button">팔로우</p>
+                    </div>
+                    <div class="sub-item">
+                        <div class="sub-item-user">
+                            <img src="img/xmas.jpg">
+                            <div class="sub-item-text">
+                                <p class="sub-item-name">이용자1</p>
+                                <p class="sub-item-follower">이용자님이 팔로우합니다</p>
+                            </div>
+                        </div>
+                        <p class="sub-item-button">팔로우</p>
+                    </div>
+                    <div class="sub-item">
+                        <div class="sub-item-user">
+                            <img src="img/xmas.jpg">
+                            <div class="sub-item-text">
+                                <p class="sub-item-name">이용자1</p>
+                                <p class="sub-item-follower">이용자님이 팔로우합니다</p>
+                            </div>
+                        </div>
+                        <p class="sub-item-button">팔로우</p>
+                    </div>
+                    <div class="sub-item">
+                        <div class="sub-item-user">
+                            <img src="img/xmas.jpg">
+                            <div class="sub-item-text">
+                                <p class="sub-item-name">이용자1</p>
+                                <p class="sub-item-follower">이용자님이 팔로우합니다</p>
+                            </div>
+                        </div>
+                        <p class="sub-item-button">팔로우</p>
+                    </div>
+                    <div class="sub-item">
+                        <div class="sub-item-user">
+                            <img src="img/xmas.jpg">
+                            <div class="sub-item-text">
+                                <p class="sub-item-name">이용자1</p>
+                                <p class="sub-item-follower">이용자님이 팔로우합니다</p>
+                            </div>
+                        </div>
+                        <p class="sub-item-button">팔로우</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="footer">
+            <div id="icon-wrapper">
+                <img src="img/home@3x.png">
+                <img src="img/search@3x.png">
+                <img src="img/trending@3x.png">
+                <img src="img/like@3x.png">
+                <img src="img/home@3x.png">
+            </div>
+        </div>
+    </div>
+</body>
+</html>
