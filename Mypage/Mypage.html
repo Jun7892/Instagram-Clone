@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" media="(min-width: 860px)" href="Mypage.css">
+    <title>Instagram</title>
+
+    <script>
+
+            function PopupExplain(param) {
+
+                var val = document.getElementById(param).outerHTML;
+
+                var explain = document.getElementById("explain");
+
+
+                var w = window.open("", "", "");
+
+                w.document.write(val);
+
+                w.document.close();
+
+            }
+
+        </script>
+</head>
+
+<body>
+
+<div>
+    <div id="desktop-header">
+        <div id="desktop-header-wrapper">
+            <div id="logo-wrapper">
+                <img src="img/insta-logo.png"/>
+            </div>
+            <div id="search-wrapper">
+                <img src="img/search@3x.png">
+                <p>검색</p>
+            </div>
+            <div id="header-icon-wrapper">
+                <img class="header-icon" src="img/home@3x.png"/>
+                <img class="header-icon" src="img/dm@3x.png"/>
+                <img class="header-icon" src="img/trending@3x.png"/>
+                <img class="header-icon" src="img/like@3x.png"/>
+                <img class="header-icon" src="img/more@3x.png"/>
+            </div>
+        </div>
+    </div>
+
+    <div id="post-container">
+        <div class="post-wrapper">
+            <div class="post-header">
+                <div class="right-wrapper">
+                    <img class="pfp" src="img/jerry.jpg" align="left" vspace="10" hspace="10">
+                    <span style="font-size:5px">&nbsp;</span>
+                    <span style="font-size:30px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ID</span>
+                    <span style="font-size:10px">&nbsp;</span>
+                    <span style="display:inline">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;12&nbsp;post&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4M&nbsp;followers&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1,250&nbsp;following</span>
+                    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Name</p>
+                </div>
+            </div>
+
+            <div class="post-body">
+
+            </div>
+        </div>
+
+
+        <div class="post-wrapper">
+            <div class="post-header">
+                <div class="post-menu">
+                    Posts&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Videos&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Reels&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tagged
+                </div>
+            </div>
+
+            <div class="post-body">
+                <div class="post-collection">
+                    <img src="img/jerry.jpg" style="opacity: 1" onmouseover="this.style.opacity='0.2'"
+                         onmouseout="this.style.opacity='1'" class="img-first" alt="..." onclick="window.open(this.src)"/>
+                    <img src="img/jerry.jpg" style="opacity: 1" onmouseover="this.style.opacity='0.2'"
+                         onmouseout="this.style.opacity='1'" class="img-second" alt="..." onclick="window.open(this.src)"/>
+                    <img src="img/jerry.jpg" style="opacity: 1" onmouseover="this.style.opacity='0.2'"
+                         onmouseout="this.style.opacity='1'" class="img-third" alt="..." onclick="window.open(this.src)"/>
+                    <img src="img/jerry.jpg" style="opacity: 1" onmouseover="this.style.opacity='0.2'"
+                         onmouseout="this.style.opacity='1'" class="img-fourth" alt="..." onclick="window.open(this.src)"/>
+                    <img src="img/jerry.jpg" style="opacity: 1" onmouseover="this.style.opacity='0.2'"
+                         onmouseout="this.style.opacity='1'" class="img-fifth" alt="..." onclick="window.open(this.src)"/>
+                    <img src="img/jerry.jpg" style="opacity: 1" onmouseover="this.style.opacity='0.2'"
+                         onmouseout="this.style.opacity='1'" class="img-sixth" alt="..." onclick="window.open(this.src)"/>
+                    <img src="img/jerry.jpg" style="opacity: 1" onmouseover="this.style.opacity='0.2'"
+                         onmouseout="this.style.opacity='1'" class="img-seventh" alt="..." onclick="window.open(this.src)"/>
+                    <img src="img/jerry.jpg" style="opacity: 1" onmouseover="this.style.opacity='0.2'"
+                         onmouseout="this.style.opacity='1'" class="img-eighth" alt="..." onclick="window.open(this.src)"/>
+                    <img src="img/jerry.jpg" style="opacity: 1" onmouseover="this.style.opacity='0.2'"
+                         onmouseout="this.style.opacity='1'" class="img-ninth" alt="..." onclick="window.open(this.src)"/>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+
+
+
+</div>
+
+</body>
