@@ -43,11 +43,19 @@ def home():
 @app.route('/login')
 def login():
     msg = request.args.get("msg")
-    return render_template('login.html', msg=msg)
+    return render_template('log_in.html', msg=msg)
 
+# @app.route('/register')
+# def register():
+#     return render_template('register.html')
 
 @app.route('/register/', methods=['GET'])
 def register():
+        # if request.method == 'POST':
+        # new_user = User(username=request.form['username'], password=request.form['password'])
+        # db.session.add(new_user)
+        # db.session.commit()
+        # return render_template('login.html')
     return render_template('register.html')
 
 @app.route('/main')
@@ -57,6 +65,12 @@ def main():
 @app.route('/index')
 def index():
     return render_template('main.html')
+
+# @app.route("/logout")
+# def logout():
+#     # """Logout Form"""
+#     # session['logged_in'] = False
+#     return redirect(url_for('home'))
 
 #################################
 ##  로그인을 위한 API            ##

@@ -110,35 +110,11 @@
         { 'src': 'static/image/Lu3.jpg', 'name': '루피', 'msg': '쉽지 않다..' }, { 'src': 'static/image/Lu4.jpg', 'name': '루피', 'msg': '#ootd #오늘의훈녀 #팔로미' },
         { 'src': 'static/image/Lu5.png', 'name': '루피', 'msg': '쒸익 쒸익!' }]
 
-        // let story_list = [{ 'src': 'static/image/12344.gif', 'name': '제리', 'msg': '여러분 안녕하세요!' }, { 'src': 'static/image/595454.PNG', 'name': '제리', 'msg': '토요일에 한살 더 먹는다 ㅜㅜ' },
-        // { 'src': 'static/image/12344.jpg', 'name': '제리', 'msg': '발표 너무 떨려' }, { 'src': 'static/image/13444.jpg', 'name': '제리', 'msg': '같이 롤 하실 분...ㅎ' },
-        // { 'src': 'static/image/15202.PNG', 'name': '제리', 'msg': '쒸익 쒸익!' }]
         function storyclick(data) {
             data.classList.replace('story-img', 'clicked-story-img')
 
         }
-        // function like(data) {
-        //     console.log(document.getElementById(`${data.alt}likey`).innerText)
-        //     let likey = Number(document.getElementById(`${data.alt}likey`).innerText.split('명')[0])
-        //     console.log()
-        //     if (data.attributes[3].value === 'static/image/like@3x.png') {
-        //         data.setAttribute('src', filename = 'static/image/like@4x.png')
-        //         document.getElementById(`${data.alt}likey`).innerText = `${String(likey + 1)}명`
-        //     } else {
-        //         data.setAttribute('src', 'static/image/like@3x.png')
-        //         document.getElementById(`${data.alt}likey`).innerText = `${String(likey - 1)}명`
-        //     }
-        // }
-        // function favorite(data) {
-        //     if (data.attributes[3].value === 'static/image/favorite@3x.png') {
-        //         data.setAttribute('src', 'static/image/favorite@4x.png')
-        //         $('.feed-icon').off('hover');
 
-        //     } else {
-        //         data.setAttribute('src', 'static/image/favorite@3x.png')
-
-        //     }
-        // }
         function like(data) {
             console.log(document.getElementById(`${data.alt}likey`).innerText)
             let likey = Number(document.getElementById(`${data.alt}likey`).innerText.split('명')[0])
