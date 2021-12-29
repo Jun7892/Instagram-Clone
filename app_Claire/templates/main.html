@@ -7,7 +7,7 @@
     <title>Lupistagram</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/common.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
-
+    <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 
@@ -39,6 +39,11 @@
     <main>
         <div class="feeds">
             <!-- article -->
+            <form action="/upload" method="post" id="uploadForm" enctype="multipart/form-data">
+                <label>이미지 첨부</label>
+                <input type="file" name="image" class="form-control" placeholder="">
+                <input type="submit" class="btn btn-primary btn_location" value="Submit">
+            </form>
             <article>
                 <header>
                     <div class="profile-of-article">
@@ -53,8 +58,15 @@
                 </div>
                 <div class="icons-react">
                     <div class="icons-left">
-                        <img class="icon-react"
+                        <img class="icon-react" id="heart1"
                             src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/bearu/heart.png" alt="하트">
+
+                        <script> // 하트 full 구현
+                            $("img").click(function () {
+                                document.getElementById('heart1').src = 'static/image/like@4x.png';
+                            });
+                        </script>
+
                         <img class="icon-react"
                             src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/bearu/comment.png" alt="말풍선">
                         <img class="icon-react" src="{{url_for('static', filename='image/dm.png')}}" alt="DM">
@@ -84,7 +96,15 @@
                                     <div class="comment-like">
                                         <img class="comment-heart"
                                             src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/bearu/heart.png"
-                                            alt="하트">
+                                            alt="하트" id="heart1">
+
+                                        <script> // 하트 full -> 원상태로 복구 구현..!
+                                            $("img").click(function () {
+                                                $('#aaa').css('background-color', 'transparent');
+
+                                            });
+                                        </script>
+
                                         <img class="comment-heart-liked" src="static/image/liked.png" alt="좋아요된하트">
                                     </div>
                                 </div>
@@ -184,8 +204,15 @@
                 </div>
                 <ul class="story-list">
                     <li>
-                        <div class="gradient-wrap">
+                        <div class="gradient-wrap" id="aaa">
                             <img class="img-profile story" src="static/image/Lu1.jpg" alt="star_wars님의 프로필 사진">
+
+                            <script> // css내 백그라운드 색 변경 
+                                $("img").click(function () {
+                                    $(this).parent().css('background', 'transparent');
+                                });
+                            </script>
+
                         </div>
                         <div class="profile-text">
                             <span class="userID point-span">star_wars</span>
@@ -193,8 +220,16 @@
                         </div>
                     </li>
                     <li>
-                        <div class="gradient-wrap">
+                        <div class="gradient-wrap" id="bbb">
                             <img class="img-profile story" src="static/image/Lu4.jpg" alt="oh_my__life님의 프로필 사진">
+
+                            <script> // parent tag인 div불러와서 css내 백그라운드 색 변경 
+                                $("img").click(function () {
+                                    $(this).parent().css('background', 'transparent');
+                                });
+                            </script>
+
+
                         </div>
                         <div class="profile-text">
                             <span class="userID point-span">oh_my__life</span>
@@ -204,7 +239,13 @@
                     <li>
                         <div class="gradient-wrap">
                             <img class="img-profile story" src="static/image/Lu2.jpg" alt="dntlrdl님의 프로필 사진">
+                            <script> // css내 백그라운드 색 변경 
+                                $("img").click(function () {
+                                    $(this).parent().css('background', 'transparent');
+                                });
+                            </script>
                         </div>
+
                         <div class="profile-text">
                             <span class="userID point-span">dntlrdl</span>
                             <span class="sub-span">33분 전</span>
@@ -213,6 +254,11 @@
                     <li>
                         <div class="gradient-wrap">
                             <img class="img-profile story" src="static/image/Lu4.jpg" alt="toogoodtobetrue님의 프로필 사진">
+                            <script> // css내 백그라운드 색 변경 
+                                $("img").click(function () {
+                                    $(this).parent().css('background', 'transparent');
+                                });
+                            </script>
                         </div>
                         <div class="profile-text">
                             <span class="userID point-span">toogoodtobetrue</span>
