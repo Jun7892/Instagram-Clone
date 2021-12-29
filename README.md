@@ -30,22 +30,28 @@ Common : Git, Github, Slack, Notion
 - JWT 기반 일반 로그인
 - 인스타 소셜 로그인
 - 이메일기반 비밀번호 찾기
-- 유저 데이터 GET, 유저 데이터UPDATE 기능 구현
+- 유저 데이터 GET
 
-## photo & video
+## Mainpage
 
-- 사진 / 동영상 업로드
-- 게시물, 좋아요, 댓글, 대댓글 / 삭제
-- 스토리 사진/동영상
-- 우측 추천 섹션 구현 (추천 친구)
+- 불러온 데이터로 게시물 포스팅
+- 마이 페이지 페이지 전환
+- (옵션) 사진 / 동영상 업로드
+- (옵션) 댓글, 대댓글 / 삭제 기능
+- (옵션) 로그 클릭시 페이지 새로고침
+- 스토리 사진/동영상 (UI 구현됨)
+- 추천 친구 (UI 구현됨)
+- 좋아요 업데이트 (UI 구현됨)
 
-## Profile
+## Mypage
 
 - 메인 프로필 사진
-- 마이페이지 (자신이 쓴 글 모아보기 등) 구현
+- 해당 유저 포스팅 모아보기
 - 키워드 검색 및 위치 설정
-- 스크롤 및 고정바 구현
+- Hover 하트수 구현
+- Insta Logo 클릭 시 메인페이지 이동
+- 이미지 클릭시 사직 확대 및  메인페이지 피드 불러오기
 
-## [Wireframe](https://www.figma.com/file/1R9xvf8tuy3OasihqDiSSs/%EC%9D%B8%EC%8A%A4%ED%83%80%EA%B7%B8%EB%9E%A8-%ED%81%B4%EB%A1%A0-%EC%BD%94%EB%94%A9?node-id=0%3A1)
+## [Notion](https://www.notion.so/7-37980608eb054036a945d8dfb6c0b2d6)
 
 ### 📌AWS EC2 업로드 / Link
