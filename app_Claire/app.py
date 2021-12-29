@@ -30,7 +30,7 @@ def home():
         payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
         user_info = db.user.find_one({"id": payload['id']})
         # return render_template('index.html', nickname=user_info["nick"])
-        return render_template('main.html', nickname=user_info["nick"])
+        return render_template('main.html', nickname=user_info["nick"], id=user_info["id"])
 		# 만약 해당 token의 로그인 시간이 만료되었다면, 아래와 같은 코드를 실행합니다.
     except jwt.ExpiredSignatureError:
         return redirect(url_for("login"))
