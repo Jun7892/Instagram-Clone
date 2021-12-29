@@ -43,7 +43,7 @@ def home():
 @app.route('/login')
 def login():
     msg = request.args.get("msg")
-    return render_template('log_in.html', msg=msg)
+    return render_template('login.html', msg=msg)
 
 # @app.route('/register')
 # def register():
@@ -61,6 +61,10 @@ def register():
 @app.route('/main')
 def main():
     return render_template('main.html')
+
+@app.route('/chae_main')
+def chae_main():
+    return render_template('chae_main.html')
 
 @app.route('/index')
 def index():
@@ -113,7 +117,7 @@ def api_login():
         # exp에는 만료시간을 넣어줍니다. 만료시간이 지나면, 시크릿키로 토큰을 풀 때 만료되었다고 에러가 납니다.
         payload = {
             'id': id_receive,
-            'exp': datetime.datetime.utcnow() + datetime.timedelta(seconds=5)
+            'exp': datetime.datetime.utcnow() + datetime.timedelta(seconds=360)
         }
         token = jwt.encode(payload, SECRET_KEY, algorithm='HS256')
 

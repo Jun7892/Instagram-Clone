@@ -4,226 +4,270 @@
 <head>
     <meta charset="UTF-8">
     <meta name='viewport' content='width=device-width, initial-scale=1.0'>
-    <title>Title</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <!-- <link rel="stylesheet" href="style.css"> -->
+    <title>Lupistagram</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/common.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+
+    <link rel="icon" href="{{ url_for('static', filename='image/favicon.png') }}">
+    <link rel="instagram-icon" href="{{ url_for('static', filename='image/insta-logo.png') }}">
 </head>
 
 <body>
-    <div id="desk-head-container">
-        <div id="desk-head-wrapper">
-            <img class="logo-icon" src="{{url_for('static', filename='image/insta-logo.png')}}" onclick=" load()">
-            <div id=" desk-search">
-                <input placeholder="검색">
+    <!-- navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="nav-1">
+                <!-- <img src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/bearu/logo.png" alt="logo_img">
+            <div class="vl"></div> -->
+                <img class="logo_instagram_txt" src="{{ url_for('static', filename='image/logo_text.png') }}"
+                    alt="logo_text">
             </div>
-            <div id="head-icons">
-                <img class="icon" src="{{url_for('static', filename='image/home@3x.png')}}" />
-                <img class="icon" src="{{url_for('static', filename='image/dm@3x.png')}}" />
-                <img class="icon" src="{{url_for('static', filename='image/trending@3x.png')}}" />
-                <img class="icon" src="{{url_for('static', filename='image/like@3x.png')}}" />
-                <img class="icon" style="padding-bottom: 4%" src="{{url_for('static', filename='image/more@3x.png')}}"
-                    alt="">
+            <input id="searchInput" type="search" class="input-search" placeholder="검색">
+            <div class="nav-2">
+                <img src="static/image/home.png" alt="홈">
+                <img src="static/image/dm.png" alt="DM">
+                <img src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/bearu/explore.png" alt="탐색">
+                <img src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/bearu/heart.png" alt="하트">
+                <img class="pic" src="static/image/Lu6.png" alt="마이페이지">
             </div>
         </div>
-    </div>
-    <div id="all-container">
-        <div id="head-container">
-            <img class="left-head-icon side-head-icon" id="camera"
-                src="{{url_for('static', filename='image/camera@3x.png')}}" />
-            <img class="logo-icon" src="{{url_for('static', filename='image/insta-logo.png')}}" onclick="load()" />
-            <img class="right-head-icon side-head-icon" src="{{url_for('static', filename='image/dm@3x.png')}}" />
-        </div>
-        <div id="foot-container">
-            <img class="foot-icon" src="{{url_for('static', filename='image/home@3x.png')}}" />
-            <img class="foot-icon" src="{{url_for('static', filename='image/search@3x.png')}}" />
-            <img class="foot-icon" src="{{url_for('static', filename='image/trending@3x.png')}}" />
-            <img class="foot-icon" src="{{url_for('static', filename='image/like@3x.png')}}" />
-            <img class="foot-icon" src="{{url_for('static', filename='image/home@3x.png')}}" />
-        </div>
-
-        <div id="main-container">
-            <div style="max-width: 720px;">
-                <div id="story-container"></div>
-                <div id="feed-container"></div>
-                <div class="feed-wrapper">
-                    <div class="feed-head-container">
-                        <div class="feed-head-wrapper">
-                            <img class="feed-head-img" src="{{url_for('static', filename='image/okk2.jpg')}}" alt="">
-                            <div>옥수수</div>
-                        </div>
-                        <img class="more-icon" style="" src="{{url_for('static', filename='image/more@3x.png')}}"
-                            alt="">
+    </nav>
+    <!-- main -->
+    <main>
+        <div class="feeds">
+            <!-- article -->
+            <article>
+                <header>
+                    <div class="profile-of-article">
+                        <img class="img-profile pic" src="static/image/Lu2.jpg" alt="youngthuglife님의 프로필 사진">
+                        <span class="userID main-id point-span">youngthuglife</span>
                     </div>
-                    <img class="feed-img" src="{{url_for('static', filename='image/gamja_crop.jpg')}}" alt="">
-                    <div style="margin-top: -2%;">
-                        <div class="feed-icons-container">
-                            <div class="feed-icons-wrapper">
-                                <img class="feed-icon" onclick="like(this)"
-                                    src="{{url_for('static', filename='image/like@3x.png')}}" alt="홍채영">
-                                <img class="feed-icon" src="{{url_for('static', filename='image/comment@3x.png')}}">
-                                <img class="feed-icon" src="{{url_for('static', filename='image/dm@3x.png')}}">
-                            </div>
-
-                            <img class="feed-icon feed-right-icon" onclick="favorite(this)"
-                                src="{{url_for('static', filename='image/favorite@3x.png')}}">
-
-                        </div>
-                        <div class="feed-feed-container">
-                            <div class="feed-like-wrapper">
-                                <img class="feed-like-img" src="{{url_for('static', filename='image/okk.jpg')}}" alt="">
-                                <div id="Gamja"><strong>7조</strong>님 외에 <strong id="Goguma">9999명</strong>이 좋아합니다
+                    <img class="icon-react icon-more"
+                        src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/bearu/more.png" alt="more">
+                </header>
+                <div class="main-image">
+                    <img src="static/image/Lu2.jpg" alt="Lupi님의 피드 사진" class="mainPic">
+                </div>
+                <div class="icons-react">
+                    <div class="icons-left">
+                        <img class="icon-react"
+                            src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/bearu/heart.png" alt="하트">
+                        <img class="icon-react"
+                            src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/bearu/comment.png" alt="말풍선">
+                        <img class="icon-react" src="{{url_for('static', filename='image/dm.png')}}" alt="DM">
+                    </div>
+                    <img class="icon-react"
+                        src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/bearu/bookmark.png" alt="북마크">
+                </div>
+                <!-- article text data -->
+                <div class="reaction">
+                    <div class="liked-people">
+                        <img class="pic" src="static/image/Lu2.jpg" alt="johnnyjsuh님의 프로필 사진">
+                        <p><span class="point-span">johnnyjsuh</span>님 <span class="point-span">외 2,412,751명</span>이
+                            좋아합니다</p>
+                    </div>
+                    <div class="description">
+                        <p><span class="point-span userID">dlwlrma</span><span class="at-tag">@wkorea @gucci</span> 🌱
+                        </p>
+                    </div>
+                    <div class="comment-section">
+                        <ul class="comments">
+                            <li>
+                                <span><span class="point-span userID">postmalone</span>내가 입으면 더 잘어울릴 것 같아</span>
+                                <div>
+                                    <img class="comment-more" src="static/image/Lu2.jpg" alt="more">
+                                    <div class="comment-like">
+                                        <img class="comment-heart"
+                                            src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/bearu/heart.png"
+                                            alt="하트">
+                                        <img class="comment-heart-liked" src="static/image/liked.png" alt="좋아요된하트">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="feed-feed-wrapper">
-                                <div class="feed-msg">
-                                    <strong>구황작물_king</strong> 감자야 나야 선택해
-                                </div>
-                                <div class="feed-time">2일 전</div>
-                            </div>
-
+                            </li>
+                            <!-- input 값 여기에 추가 -->
+                        </ul>
+                        <div class="time-log">
+                            <span>32분 전</span>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div id="follow-container">
-                <div id="follow-wrapper">
-                    <p><strong>{{nickname}} 회원님을 위한 추천</strong></p>
-                    <p style="font-size: 1rem; color: #000000"><strong>모두 보기</strong></p>
+                <div class="hl"></div>
+                <div class="comment">
+                    <input id="input-comment" class="input-comment" type="text" placeholder="댓글 달기...">
+                    <button type="submit" class="submit-comment" disabled>게시</button>
                 </div>
-                <div id="follow-people">
-
+            </article>
+            <article>
+                <header>
+                    <div class="profile-of-article">
+                        <img class="img-profile pic" src="static/image/Lu4.jpg" alt="어쩔티비님의 프로필 사진">
+                        <span class="userID main-id point-span">어쩔티비</span>
+                    </div>
+                    <img class="icon-react icon-more"
+                        src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/bearu/more.png" alt="more">
+                </header>
+                <div class="main-image">
+                    <img src="static/image/Lu4.jpg" alt="어쩔티비님의 피드 사진" class="mainPic">
                 </div>
-            </div>
-        </div>
-        <div id="camera-container" class="hidden">
-            <video id="video"></video>
-            <button id="camerabtn"></button>
-            <button id="backhome" onclick="load()">
-                < </button>
-        </div>
-
-    </div>
-    <script>
-        let story_list = [{ 'src': 'static/image/Lu1.jpg', 'name': '루피', 'msg': '여러분 안녕하세요!' }, { 'src': 'static/image/Lu2.jpg', 'name': '루피', 'msg': '깜직해.' },
-        { 'src': 'static/image/Lu3.jpg', 'name': '루피', 'msg': '쉽지 않다..' }, { 'src': 'static/image/Lu4.jpg', 'name': '루피', 'msg': '#ootd #오늘의훈녀 #팔로미' },
-        { 'src': 'static/image/Lu5.png', 'name': '루피', 'msg': '쒸익 쒸익!' }]
-
-        function storyclick(data) {
-            data.classList.replace('story-img', 'clicked-story-img')
-
-        }
-
-        function like(data) {
-            console.log(document.getElementById(`${data.alt}likey`).innerText)
-            let likey = Number(document.getElementById(`${data.alt}likey`).innerText.split('명')[0])
-            console.log()
-            if (data.attributes[3].value === 'static/image/like@3x.png') {
-                data.setAttribute('src', 'static/image/like@4x.png')
-                document.getElementById(`${data.alt}likey`).innerText = `${String(likey + 1)}명`
-            } else {
-                data.setAttribute('src', 'static/image/like@3x.png')
-                document.getElementById(`${data.alt}likey`).innerText = `${String(likey - 1)}명`
-            }
-        }
-        function favorite(data) {
-            if (data.attributes[3].value === 'static/image/favorite@3x.png') {
-                data.setAttribute('src', 'static/image/favorite@4x.png')
-                $('.feed-icon').off('hover');
-
-            } else {
-                data.setAttribute('src', 'static/image/favorite@3x.png')
-
-            }
-        }
-        makefeed(story_list)
-        makestory(story_list)
-        makestory(story_list)
-        followme(story_list)
-        function makestory(data) {
-            let b = 1
-            for (a of data) {
-                let imgsrc = a['src']
-                let name = a['name']
-
-                let storytemp = `<div class="story-wrapper">
-                            <img class="story-img " src="${imgsrc}" alt="" onClick="storyclick(this)">
-                                <div>${name}${b}</div>
-                        </div>`
-
-                $('#story-container').append(storytemp)
-                b++
-            }
-        }
-        function makefeed(data) {
-            let b = 1
-            for (a of data) {
-                let imgsrc = a['src']
-                let name = a['name']
-                let msg = a['msg']
-                let feedtemp = `<div class="feed-wrapper">
-                                    <div class="feed-head-container">
-                                        <div class="feed-head-wrapper">
-                                            <img class="feed-head-img" src="${imgsrc}" alt="">
-                                            <div>${name}${b}</div>
-                                        </div>
-                                        <img class="more-icon" style="" src="static/image/more@3x.png" alt="" onclick="opendia()">
-                                    </div>
-                                    <img class="feed-img" src="${imgsrc}" alt="">
-                                    <div style="margin-top: -2%;">
-                                        <div class="feed-icons-container">
-                                            <div class="feed-icons-wrapper">
-                                                <img class="feed-icon" style=""  onclick="like(this)" src="static/image/like@3x.png" alt="${name}${b}">
-                                                <img class="feed-icon" src="static/image/comment@3x.png">
-                                                <img class="feed-icon" src="static/image/dm@3x.png">
-                                            </div>
-                                            <img class="feed-icon feed-right-icon" style="" onclick="favorite(this)" src="static/image/favorite@3x.png">
-                                        </div>
-                                        <div class="feed-feed-container">
-                                            <div class="feed-like-wrapper">
-                                                <img class="feed-like-img" src="${imgsrc}" alt="">
-                                                <div id="${name}${b}"><strong>${name}${b}</strong>님 외에 <strong id="${name}${b}likey">9999명</strong>이 좋아합니다</div>
-                                            </div>
-                                            <div class="feed-feed-wrapper">
-                                                <div class="feed-msg">
-                                                    <strong>${name}${b}</strong> ${msg}
-                                                </div>
-                                                <div class="feed-time">12시간 전</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>`
-
-                $('#feed-container').append(feedtemp)
-                b++
-            }
-        }
-        function followme(data) {
-            let b = 1
-            for (a of data) {
-                let imgsrc = a['src']
-                let name = a['name']
-                let temp = `<div class="container">
-                                <div class="wrapper">
-                                    <div><img class="icon" src="${imgsrc}"/>
-                                    </div>
-                                    <div style="padding-left: 5%">
-                                        <div><strong>${name}${b}${b}</strong></div>
-                                        <p>회원님을 위한 추천</p>
+                <div class="icons-react">
+                    <div class="icons-left">
+                        <img class="icon-react"
+                            src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/bearu/heart.png" alt="하트">
+                        <img class="icon-react"
+                            src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/bearu/comment.png" alt="말풍선">
+                        <img class="icon-react" src="static/image/dm.png" alt="DM">
+                    </div>
+                    <img class="icon-react"
+                        src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/bearu/bookmark.png" alt="북마크">
+                </div>
+                <!-- article text data -->
+                <div class="reaction">
+                    <div class="liked-people">
+                        <img class="pic" src="static/image/Lu5.jpg" alt="shshsha님의 프로필 사진">
+                        <p><span class="point-span">어쩔티비</span>님 <span class="point-span">외 4,612,203명</span>이
+                            좋아합니다</p>
+                    </div>
+                    <div class="description">
+                        <p><span class="point-span userID">7조다</span>오늘은 옥수수 캐러감</p>
+                    </div>
+                    <div class="comment-section">
+                        <ul class="comments">
+                            <li>
+                                <span><span class="point-span userID">claire-says._.</span>나는 감자.</span>
+                                <div>
+                                    <img class="comment-more"
+                                        src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/bearu/more.png"
+                                        alt="more">
+                                    <div class="comment-like">
+                                        <img class="comment-heart"
+                                            src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/bearu/heart.png"
+                                            alt="하트">
+                                        <img class="comment-heart-liked" src="static/image/liked.png" alt="좋아요된하트">
                                     </div>
                                 </div>
-                                <p>팔로우</p>
-                            </div>`
-                $('#follow-people').append(temp)
-                b++
-            }
-        }
-        function load() {
-            window.location.reload()
-        }
+                            </li>
+                            <!-- input 값 여기에 추가 -->
+                        </ul>
+                        <div class="time-log">
+                            <span>1시간 전</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="hl"></div>
+                <div class="comment">
+                    <input id="input-comment2" class="input-comment" type="text" placeholder="댓글 달기...">
+                    <button type="submit" class="submit-comment" disabled>게시</button>
+                </div>
+            </article>
 
-    </script>
+        </div>
+        <!-- main-right -->
+        <div class="main-right">
+            <div class="myProfile">
+                <img class="pic" src="static/image/Lu6.png" alt="그루트님의 프로필 사진">
+                <div>
+                    <span class="userID point-span">{{nickname}}</span>
+                    <!-- ID로 어떻게? -->
+                    <span class="sub-span">{{nickname}}</span>
+                </div>
+            </div>
+            <!-- story section -->
+            <div class="section-story">
+                <div class="menu-title">
+                    <span class="sub-title">스토리</span>
+                    <span class="find-more">모두 보기</span>
+                </div>
+                <ul class="story-list">
+                    <li>
+                        <div class="gradient-wrap">
+                            <img class="img-profile story" src="static/image/Lu2.jpg" alt="wecode_bootcamp님의 프로필 사진">
+                        </div>
+                        <div class="profile-text">
+                            <span class="userID point-span">wecode_bootcamp</span>
+                            <span class="sub-span">12분 전</span>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="gradient-wrap">
+                            <img class="img-profile story" src="static/image/Lu2.jpg" alt="han_ye_seul님의 프로필 사진">
+                        </div>
+                        <div class="profile-text">
+                            <span class="userID point-span">han_ye_seul</span>
+                            <span class="sub-span">28분 전</span>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="gradient-wrap">
+                            <img class="img-profile story" src="static/image/Lu2.jpg" alt="dntlrdl님의 프로필 사진">
+                        </div>
+                        <div class="profile-text">
+                            <span class="userID point-span">dntlrdl</span>
+                            <span class="sub-span">40분 전</span>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="gradient-wrap">
+                            <img class="img-profile story" src="static/image/Lu2.jpg" alt="i_icaruswalks님의 프로필 사진">
+                        </div>
+                        <div class="profile-text">
+                            <span class="userID point-span">i_icaruswalks</span>
+                            <span class="sub-span">56분 전</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <!-- recommendation section -->
+            <div class="section-recommend">
+                <div class="menu-title">
+                    <span class="sub-title">회원님을 위한 추천</span>
+                    <span class="find-more">모두 보기</span>
+                </div>
+                <ul class="recommend-list">
+                    <li>
+                        <div class="recommend-friend-profile">
+                            <img class="img-profile" src="static/image/Lu2.jpg" alt="renebaebae님의 프로필 사진">
+                            <div class="profile-text">
+                                <span class="userID point-span">옥수수</span>
+                                <span class="sub-span">구황작물님 외 2명이 팔로우합니다</span>
+                            </div>
+                        </div>
+                        <span class="btn-follow">팔로우</span>
+                    </li>
+                    <li>
+                        <div class="recommend-friend-profile">
+                            <img class="img-profile" src="static/image/Lu2.jpg" alt="aaa님의 프로필 사진">
+                            <div class="profile-text">
+                                <span class="userID point-span">aaa</span>
+                                <span class="sub-span">johnnyjsuh님이 팔로우합니다</span>
+                            </div>
+                        </div>
+                        <span class="btn-follow">팔로우</span>
+                    </li>
+                    <li>
+                        <div class="recommend-friend-profile">
+                            <img class="img-profile" src="static/image/Lu4.jpg" alt="어쩔티비님의 프로필 사진">
+                            <div class="profile-text">
+                                <span class="userID point-span">어쩔티비</span>
+                                <span class="sub-span">jennierubyjane님 외 5명이 팔로우합...</span>
+                            </div>
+                        </div>
+                        <span class="btn-follow">팔로우</span>
+                    </li>
+                </ul>
+            </div>
+            <footer>
+                <p class="insta-sccript">
+                    소개 ∙ 도움말 ∙ 홍보 센터 ∙ API ∙ 채용 정보 ∙ 개인정보처리방침 ∙ <br>약관 ∙ 위치 ∙ 인기계정 ∙ 해시태그 ∙ 언어
+                    <br><br>
+                    © 2021 INSTAGRAM FROM FACEBOOK
+                </p>
+            </footer>
+        </div>
+    </main>
+    <script src="js/main.js"></script>
 </body>
 
 </html>

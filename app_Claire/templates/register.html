@@ -1,21 +1,25 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
-
     <!-- Webpage Title -->
     <title>루피스타그램 회원가입</title>
 
     <!-- Required meta tags -->
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width">
 
-    <!-- Bulma CSS 링크 -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+    <!-- CSS 링크 -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/common.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
 
     <!-- JS -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+
+    <!-- favicon -->
+    <link rel="icon" href="{{ url_for('static', filename='image/fav.png') }}">
+    <!-- <link rel="instagram-icon" href="{{url_for('static', filename='image/insta-logo.png')}}"> -->
 
     <script>
         // 간단한 회원가입 함수입니다.
@@ -40,54 +44,20 @@
                 }
             })
         }
-
     </script>
 </head>
 
+
 <body>
-    <div class="section has-text-centered">
-        <h1 class="title">회원가입 페이지</h1>
-        <div class="container" style="width:60%">
-            <div class="field is-horizontal">
-                <div class="field-label is-normal">
-                    <label class="label" for="userid">ID</label>
-                </div>
-                <div class="field-body">
-                    <div class="field">
-                        <div class="control">
-                            <input type="text" class="input" id="userid" aria-describedby="emailHelp"
-                                placeholder="My ID">
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="field is-horizontal">
-                <div class="field-label is-normal">
-                    <label class="label" for="userpw">PW</label>
-                </div>
-                <div class="field-body">
-                    <div class="field">
-                        <div class="control">
-                            <input type="password" class="input" id="userpw" placeholder="My Password">
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="field is-horizontal">
-                <div class="field-label is-normal">
-                    <label class="label" for="usernick">NICKNAME</label>
-                </div>
-                <div class="field-body">
-                    <div class="field">
-                        <div class="control">
-                            <input type="text" class="input" id="usernick" placeholder="My Nickname">
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <button class="button is-primary" onclick="register()">회원가입하기</button>
-        </div>
+    <div class="container">
+        <img class="logo_instagram" src="{{url_for('static', filename='image/insta-logo.png')}}" alt="instagram_logo">
+        <input type="text" class="input_login" name="userid" id="userid" placeholder="전화번호, 사용자 이름 또는 이메일">
+        <input type="password" class="input_login" name="userpw" id="userpw" placeholder="비밀번호">
+        <input type="text" class="input_login" name="usernick" id="usernick" placeholder="닉네임">
+        <a href="#none"><button id="btn_login" disabled onclick="register()">회원가입</button></a>
     </div>
+    <script src="{{url_for('static', filename='js/login.js')}}"></script>
 </body>
+
 
 </html>
