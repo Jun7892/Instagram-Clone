@@ -1,0 +1,406 @@
+.is-hidden {
+    display: none;
+}
+
+html {
+    font-size: 12px;
+    background-color: #fafafa;
+}
+@media (max-width: 600px) {
+    html {
+        font-size: 12px;
+    }
+}
+@media (max-width: 300px) {
+    html {
+        font-size: 8px;
+    }
+}
+
+body {
+}
+/*공통*/
+#all-container {
+    max-width: 720px;
+    margin: auto;
+}
+#head-container {
+    position: fixed;
+    top: 0;
+    margin: auto;
+}
+#foot-container {
+    position: fixed;
+    bottom: 0;
+    margin: auto;
+}
+#main-container {
+    max-width: 720px;
+    margin: auto;
+    padding-top: 10%;
+    padding-bottom: 10%;
+}
+#story-container {
+    width: 100%;
+    position: relative;
+    display: flex;
+    border-bottom: 1px solid #8d8c8c45;
+    z-index: 1;
+    overflow: auto;
+    padding: 3% 0% 1% 0%;
+}
+.story-img {
+    width: 5rem;
+    height: 5rem;
+    border: 3px solid transparent;
+    border-radius: 50%;
+    background-image: linear-gradient(#444444, #444444),
+        linear-gradient(
+            41deg,
+            rgb(255 219 0) 24%,
+            rgb(255 46 0) 69%,
+            rgb(247 50 176) 53%
+        );
+    background-origin: border-box;
+    background-clip: content-box, border-box;
+}
+.clicked-story-img {
+    width: 5rem;
+    height: 5rem;
+    border: 3px solid #dedede;
+    border-radius: 50%;
+}
+.story-wrapper {
+    margin: 0 2%;
+    text-align: center;
+    font-size: 1.4rem;
+    font-weight: bolder;
+}
+#story-container::-webkit-scrollbar {
+    height: 0.5rem;
+}
+#story-container::-webkit-scrollbar-thumb {
+    background-color: #8d8c8c45;
+    border-radius: 10px;
+}
+#feed-container {
+}
+.feed-wrapper {
+}
+.feed-head-img {
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: 50%;
+    margin-right: 2%;
+}
+
+.feed-head-wrapper {
+    display: flex;
+    font-size: 1.5rem;
+    font-weight: bold;
+    align-items: center;
+    width: 100%;
+    padding: 2% 2%;
+}
+.feed-head-container {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    margin: auto;
+}
+.feed-img {
+    width: 100%;
+}
+.feed-icons-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 2%;
+}
+.feed-icon {
+    width: 2.5rem;
+    height: 2.5rem;
+    margin: 1.5%;
+}
+
+.feed-icons-wrapper {
+    width: -webkit-fill-available;
+    padding-left: 3%;
+}
+.feed-like-wrapper {
+    display: flex;
+    font-size: 1.5rem;
+    align-items: center;
+    padding: 0 4%;
+}
+.feed-like-img {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    margin-right: 2%;
+}
+.feed-feed-wrapper {
+    display: flex;
+    font-size: 1.5rem;
+    flex-direction: column;
+    padding: 0 4%;
+    border-bottom: 1px solid #8d8c8c45;
+}
+.feed-time {
+    font-size: 1.2rem;
+    color: gray;
+    margin: 3% 0;
+}
+.feed-msg {
+    font-size: 1.5rem;
+    margin: 3% 0;
+}
+
+.hidden {
+    display: none;
+}
+.feed-right-icon {
+    padding-right: 2%;
+}
+.more-icon {
+    width: 4%;
+    padding-right: 2%;
+}
+video {
+    position: absolute;
+    top: 180px;
+}
+#camerabtn {
+    width: 6rem;
+    height: 6rem;
+    border: 3px solid transparent;
+    border-radius: 50%;
+    background-image: linear-gradient(#ff0000, #ff0000),
+        linear-gradient(
+            41deg,
+            rgb(81 81 81 / 0%) 24%,
+            rgb(123 123 123 / 0%) 69%,
+            rgb(126 126 126 / 0%) 53%
+        );
+    background-origin: border-box;
+    background-clip: content-box, border-box;
+    position: absolute;
+    bottom: 70px;
+    left: 280px;
+}
+#backhome {
+    position: absolute;
+    bottom: 76px;
+    right: 68px;
+    border-radius: 50px;
+    width: 5rem;
+    height: 5rem;
+    border-color: #ffffff;
+    font-size: 2rem;
+    font-weight: bold;
+}
+#dialog {
+    width: 30rem;
+    font-size: 1.2rem;
+    text-align: center;
+    border: 0.1px solid #8d8c8c45;
+    border-radius: 25px;
+    padding: 0;
+}
+#dialog button {
+    border: 0;
+    background-color: white;
+    font-size: 1.2rem;
+    padding-top: 2%;
+    padding-bottom: 4%;
+}
+#dialog button:focus-visible {
+    outline: 0;
+}
+
+@media (max-width: 1000px) {
+    #desk-head-container,
+    #follow-container {
+        display: none;
+    }
+    #head-container {
+        width: 100%;
+        position: fixed;
+        top: 0;
+        display: flex;
+        border-bottom: 1px solid #8d8c8c45;
+        justify-content: space-between;
+        align-items: center;
+        z-index: 4;
+        background-color: #ffffff;
+        max-width: 720px;
+        max-height: 80px;
+    }
+
+    .logo-icon {
+        width: 20%;
+        margin: 2%;
+    }
+
+    .side-head-icon {
+        width: 5%;
+    }
+
+    .right-head-icon {
+        padding-right: 5%;
+    }
+
+    .left-head-icon {
+        padding-left: 5%;
+    }
+
+    #foot-container {
+        width: 100%;
+        position: fixed;
+        bottom: 0;
+        display: flex;
+        background-color: #ffffff;
+        justify-content: space-around;
+        border-top: 1px solid #8d8c8c45;
+        max-width: 720px;
+        z-index: 3;
+        max-height: 80px;
+    }
+
+    .foot-icon {
+        width: 5%;
+        margin: 3% 0;
+    }
+}
+@media (min-width: 1000px) {
+    #all-container {
+        position: relative;
+        left: -100px;
+    }
+    #head-container {
+        display: none;
+    }
+    #foot-container {
+        display: none;
+    }
+    #desk-head-container {
+        width: 100%;
+        height: 80px;
+        border-bottom: 1px solid #8d8c8c45;
+        position: fixed;
+        top: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: -webkit-fill-available;
+        background-color: #ffffff;
+        z-index: 4;
+    }
+    #desk-head-wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+    }
+    #desk-head-container .logo-icon {
+        width: 145px;
+        position: relative;
+        left: -250px;
+        height: 50px;
+    }
+    #desk-head-container .icon {
+        margin: 0 2%;
+        width: 10%;
+    }
+    #desk-search {
+        position: relative;
+        left: 20px;
+    }
+    #desk-search input {
+        background-image: url(search@3x.png);
+        background-position: 6px;
+        background-repeat: no-repeat;
+        background-size: 25px 25px;
+        opacity: 0.5;
+        padding: 3% 0 3% 20%;
+        font-size: 1rem;
+        height: 20px;
+        width: 200px;
+        border-width: 1px;
+        border-color: #acb3b961;
+        border-radius: 5px;
+    }
+    #desk-search input:focus-visible {
+        outline: none;
+    }
+    #head-icons {
+        width: 250px;
+        position: relative;
+        right: -250px;
+    }
+    #story-container {
+        padding: 3% 0% 1% 0%;
+        border: 1px solid #8d8c8c45;
+        margin: 5% 0;
+        border-radius: 5px;
+    }
+    #main-container {
+        width: 100%;
+        padding: 70px 0 0 0;
+        max-width: 720px;
+        margin: auto;
+        display: flex;
+        position: relative;
+    }
+    .feed-wrapper {
+        border: 1px solid #8d8c8c45;
+        margin: 5% 0;
+        border-radius: 5px;
+    }
+    .feed-icon:hover {
+        opacity: 0.5;
+    }
+    #follow-container {
+        position: absolute;
+        top: 100px;
+        right: -300px;
+        width: 300px;
+    }
+    #follow-wrapper {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    #follow-people {
+    }
+    #follow-people .container {
+        display: flex;
+        justify-content: space-between;
+        margin: 5% 0;
+    }
+    #follow-people .wrapper {
+        display: flex;
+        font-size: 1.2rem;
+    }
+    #follow-people .icon {
+        width: 3rem;
+        height: 3rem;
+        border-radius: 50%;
+    }
+    #follow-wrapper p {
+        color: #8e8e8e;
+        font-size: 1.2rem;
+    }
+    #follow-people .container .wrapper p {
+        font-size: 1rem;
+        color: #8e8e8e;
+        width: max-content;
+        padding-top: 3%;
+        margin: 0;
+    }
+    #follow-people .container p {
+        color: #0f9bf6;
+        font-weight: 900;
+        font-size: 1rem;
+    }
+}
