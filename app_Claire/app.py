@@ -71,7 +71,7 @@ def chae_main():
 
 @app.route('/index')
 def index():
-    return render_template('main.html')
+    return render_template('login.html')
 
 
 # image upload to folder
