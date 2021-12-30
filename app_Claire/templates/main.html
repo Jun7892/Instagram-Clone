@@ -3,6 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name='viewport' content='width=device-width, initial-scale=1.0'>
     <title>Lupistagram</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/common.css') }}">
@@ -12,7 +13,8 @@
 
 
     <link rel="icon" href="{{ url_for('static', filename='image/favicon.png') }}">
-    <link rel="instagram-icon" href="{{ url_for('static', filename='image/insta-logo.png') }}">
+    <link rel="instagram-icon" onclick='window.location.href = "/register"'
+        href="{{ url_for('static', filename='image/insta-logo.png') }}">
     <script>
         {% if msg %}
         alert("{{ msg }}")
@@ -29,15 +31,15 @@
                 <!-- <img src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/bearu/logo.png" alt="logo_img">
             <div class="vl"></div> -->
                 <img class="logo_instagram_txt" src="{{ url_for('static', filename='image/logo_text.png') }}"
-                    alt="logo_text">
+                    onclick='window.location.href = "/main"' alt="logo_text">
             </div>
             <input id="searchInput" type="search" class="input-search" placeholder="검색">
-            <div class="nav-2">
-                <img src="static/image/home.png" alt="홈">
+            <div class="nav-2" id="nav">
+                <img src="static/image/home.png" onclick='window.location.href = "/main"' alt="홈">
                 <img src="static/image/dm.png" alt="DM">
                 <img src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/bearu/explore.png" alt="탐색">
                 <img src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/bearu/heart.png" alt="하트">
-                <img class="pic" src="static/image/Lu6.png" alt="마이페이지">
+                <img class="pic" src="static/image/Lu6.png" onclick='window.location.href = "/mypage"' alt="마이페이지">
             </div>
         </div>
     </nav>
@@ -45,15 +47,6 @@
     <main>
         <div class="feeds">
             <!-- article -->
-
-
-            <form action="/fileupload" method="POST" enctype="multipart/form-data">
-                <input type="file" name="file" />
-                <br><br>
-                <input type="submit" />
-                <input type="reset" />
-            </form>
-
 
 
 
@@ -71,28 +64,7 @@
                 </div>
                 <div class="icons-react">
                     <div class="icons-left">
-                        <script> // 하트 full 구현
-                            // $("img").click(function () {
-                            //     document.getElementById('none').src = 'static/image/like@4x.png';
-                            //     document.getElementById('none').id = 'full';
-                            // });
-                            // $("img").click(function () {
-                            //     document.getElementById('full').src = 'static/image/like@3x.png';
-                            //     document.getElementById('full').id = 'none';
-                            // });
-                            function like() {
-                                var myid = document.getElementById("id");
-                                // var id = $("#id").val();
-                                if (myid == 'none') {
-                                    $(this).attr('id', 'full');
-                                    $(this).setAttribute('src', 'static/image/like@4x.png')
-                                    // $(this).attr('src', 'static/image/like@4x.png');
-                                } else if (myid == 'full') {
-                                    $(this).attr('id', 'none');
-                                    // $(this).attr('src', 'static/image/like@3x.png');
-                                    $(this).setAttribute('src', 'static/image/like@3x.png')
-                                }
-                            }
+                        <script>
 
                         </script>
 
@@ -132,12 +104,7 @@
                                             src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/bearu/heart.png"
                                             alt="하트" id="heart1">
 
-                                        <script>
-                                            // 하트 full -> 원상태로 복구 구현..!
-                                            $("img").click(function () {
-                                                $('#heart1').css('background-color', 'transparent');
-                                            });
-                                        </script>
+
 
                                         <img class="comment-heart-liked" src="static/image/liked.png" alt="좋아요된하트">
                                     </div>
@@ -156,6 +123,7 @@
                     <button type="submit" class="submit-comment" disabled>게시</button>
                 </div>
             </article>
+
             <article>
                 <header>
                     <div class="profile-of-article">
@@ -223,7 +191,8 @@
         <!-- main-right -->
         <div class="main-right">
             <div class="myProfile">
-                <img class="pic" src="static/image/Lu6.png" alt="그루트님의 프로필 사진">
+                <img class="pic" src="static/image/Lu6.png" id="nav" onclick='window.location.href = "/mypage"'
+                    alt="마이페이지">
                 <div>
                     <span class="userID point-span">{{nickname}}</span>
                     <!-- ID로 어떻게? -->
