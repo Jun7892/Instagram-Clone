@@ -16,19 +16,6 @@ loginInput.addEventListener('keyup', function(event) {
     loginBtn.disabled = completedInput ? false : true;
 })
 
-// 게시 버튼 활성화 (예정)
-// const coBtn = document.getElementById('submit-comment2');
-// const coInput = document.getElementById('input-comment2');
-
-// function commentCheck() {
-//     return coInput.value.length >= 2 ? true : false;
-// }
-// loginInput.addEventListener('keyup', function(event) {
-//     const completedInput = commentCheck();
-//     coBtn.disabled = completedInput ? false : true;
-// })
-
-
 
 function login() {
     $.ajax({
@@ -46,5 +33,3 @@ function login() {
         }
     })
 }
-
-

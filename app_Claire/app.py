@@ -6,6 +6,7 @@ from flask import Flask, render_template, jsonify, request, redirect, url_for, f
 from werkzeug.utils import secure_filename
 import datetime
 import certifi
+import gridfs
 import os
 
 ca = certifi.where()
@@ -13,8 +14,10 @@ app = Flask(__name__)
 client = MongoClient('mongodb+srv://test:sparta@cluster0.bep7j.mongodb.net/Cluster0?retryWrites=true&w=majority', tlsCAFile=ca)
 db = client.dbsparta
 
+
 app = Flask(__name__)
 app.config["TEMPLATES_AUTO_RELOAD"] = True
+# app.config['UPLOAD_FOLDER'] = "./static/profile_pics"
 
 SECRET_KEY = 'SPARTA'
 
@@ -29,6 +32,7 @@ def home():
 		# 암호화되어있는 token의 값을 우리가 사용할 수 있도록 디코딩(암호화 풀기)해줍니다!
         payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
         user_info = db.user.find_one({"id": payload['id']})
+        # return render_template('index.html', nickname=user_info["nick"])
         return render_template('main.html', nickname=user_info["nick"], id=user_info["id"])
 		# 만약 해당 token의 로그인 시간이 만료되었다면, 아래와 같은 코드를 실행합니다.
     except jwt.ExpiredSignatureError:
@@ -44,6 +48,10 @@ def login():
     msg = request.args.get("msg")
     return render_template('login.html', msg=msg)
 
+# @app.route('/register')
+# def register():
+#     return render_template('register.html')
+
 @app.route('/register/', methods=['GET'])
 def register():
         # if request.method == 'POST':
@@ -55,31 +63,18 @@ def register():
 
 @app.route('/main')
 def main():
-    token_receive = request.cookies.get('mytoken')
-    try:
-        payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
-        user_info = db.user.find_one({"id": payload['id']})
-        return render_template('main.html', nickname=user_info["nick"], id=user_info["id"])
-    except jwt.ExpiredSignatureError:
-        return redirect(url_for("login"))
-    except jwt.exceptions.DecodeError:
-        return redirect(url_for("login", msg="로그인 정보가 존재하지 않습니다."))
+    return render_template('main.html')
+
+@app.route('/chae_main')
+def chae_main():
+    return render_template('chae_main.html')
+
+@app.route('/index')
+def index():
+    return render_template('login.html')
 
 
-@app.route('/mypage', methods=['GET'])
-def mypage():
-    token_receive = request.cookies.get('mytoken')
-    try:
-        payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
-        user_info = db.user.find_one({"id": payload['id']})
-        return render_template('mypage.html', nickname=user_info["nick"], id=user_info["id"])
-    except jwt.ExpiredSignatureError:
-        return redirect(url_for("login"))
-    except jwt.exceptions.DecodeError:
-        return redirect(url_for("login", msg="로그인 정보가 존재하지 않습니다."))
-
-
-####### image upload to folder #######
+# image upload to folder
 UPLOAD_FOLDER = 'Team-project/app_Claire/static/image/'
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 
@@ -110,7 +105,46 @@ def save_file():
 def uploaded_file(filename):
     return send_from_directory(app.config['UPLOAD_FOLDER'],
                                filename)
-######## ================ #######
+
+
+# image upload to DB
+@app.route('/upload', methods=['GET', 'POST'])
+def upload():
+    return render_template('upload.html')
+
+
+@app.route('/api/fileupload', methods=['POST'])
+def upload_file():
+    f = request.files['img_give']
+    print(f)
+    fs = gridfs.GridFS(db)
+    imageId = fs.put(f)
+    print('imageid:', imageId)
+
+    doc = {
+        'name': 'ddd',
+        'file': imageId
+    }
+
+    db.data.insert_one(doc)
+
+    return jsonify({'result': 'success'})
+
+
+@app.route('/api/readimage', methods=['GET'])
+def read_image():
+
+    data = db.data.find_one({'name': 'ddd'})
+    fs = gridfs.GridFS(db)
+    data = data['file']
+    data = fs.get(data)
+    print(data)
+    data = data.read()
+    print('ddd', io.BytesIO(data).read())
+    # return send_file(io.BytesIO(data), mimetype='image.png', as_attachment=True, attachment_filename='%s.png' % 'fds')
+    return send_file(io.BytesIO(data), mimetype='image.png')
+
+
 
 
 #################################

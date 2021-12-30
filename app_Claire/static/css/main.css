@@ -62,7 +62,6 @@ nav img {
 }
 .logo_instagram_txt {
     height: 30px;
-    cursor: pointer;
 }
 .nav-2 img {
     margin-left: 20px;
@@ -165,7 +164,6 @@ header {
     height: 32px;
     border: 1px solid #fafafa;
     border-radius: 100%;
-    cursor: pointer;
 }
 .main-image img {
     width: 612px;
@@ -392,8 +390,4 @@ ul.story-list .profile-text {
 .recommend-friend-profile {
     display: flex;
     align-items: flex-start;
-}
-
-#nav {
-    cursor: pointer;
 }
