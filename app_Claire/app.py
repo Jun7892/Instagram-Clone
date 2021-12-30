@@ -74,9 +74,8 @@ def index():
     return render_template('main.html')
 
 
-
-
-UPLOAD_FOLDER = 'static/image'
+# image upload to folder
+UPLOAD_FOLDER = 'Team-project/app_Claire/static/image/'
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
@@ -86,8 +85,7 @@ def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
 
-
-@app.route('/display', methods = ['GET', 'POST'])
+@app.route('/fileupload', methods = ['GET', 'POST'])
 def save_file():
     if request.method == 'POST':
         if 'file' not in request.files:
@@ -99,7 +97,7 @@ def save_file():
             return redirect(request.url)
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
-            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            file.save(os.path.abspath(UPLOAD_FOLDER+filename))
             return render_template('main.html', msg="업로드 되었습니다.")
 
 
@@ -107,6 +105,44 @@ def save_file():
 def uploaded_file(filename):
     return send_from_directory(app.config['UPLOAD_FOLDER'],
                                filename)
+
+
+# image upload to DB
+@app.route('/upload', methods=['GET', 'POST'])
+def upload():
+    return render_template('upload.html')
+
+
+@app.route('/api/fileupload', methods=['POST'])
+def upload_file():
+    f = request.files['img_give']
+    print(f)
+    fs = gridfs.GridFS(db)
+    imageId = fs.put(f)
+    print('imageid:', imageId)
+
+    doc = {
+        'name': 'ddd',
+        'file': imageId
+    }
+
+    db.data.insert_one(doc)
+
+    return jsonify({'result': 'success'})
+
+
+@app.route('/api/readimage', methods=['GET'])
+def read_image():
+
+    data = db.data.find_one({'name': 'ddd'})
+    fs = gridfs.GridFS(db)
+    data = data['file']
+    data = fs.get(data)
+    print(data)
+    data = data.read()
+    print('ddd', io.BytesIO(data).read())
+    # return send_file(io.BytesIO(data), mimetype='image.png', as_attachment=True, attachment_filename='%s.png' % 'fds')
+    return send_file(io.BytesIO(data), mimetype='image.png')
 
 
 
