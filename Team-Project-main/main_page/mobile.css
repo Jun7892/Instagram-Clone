@@ -1,0 +1,212 @@
+body {
+  margin: 0 auto;
+}
+
+/* 데스크탑 요소 삭제 */
+#desktop-header {
+  display: none;
+}
+#sub-container {
+  display: none;
+}
+
+/* 헤더 */
+#mobile-header {
+  display: flex;
+  justify-content: space-between;
+  background-color: white;
+  align-items: center;
+  /* fixed 를 쓰면 부모의 width 영향을 받지 않는다 */
+  width: 100%;
+  position: fixed;
+  max-width: 860px;
+  border-bottom: 1px solid lightgray;
+}
+#mobile-header .header-icon {
+  /* 여기서 margin 의 % 는 너비(width)를 기준으로 합니다! */
+  margin: 3% 5%;
+  width: 6%;
+}
+#mobile-header #logo {
+  width: 27%;
+}
+
+/* 컨테이너 */
+#container {
+  padding-top: 12%;
+  padding-bottom: 12%;
+}
+
+/* 스토리 */
+#story-container {
+  padding-left: 1%;
+  background-color: #f6f6f6;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  overflow: hidden;
+  border-bottom: 1px solid lightgray;
+}
+.story-wrapper {
+  width: auto;
+  margin: 2.5% 3.2%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.story-wrapper .story-on {
+  width: 13vw;
+  max-width: 80px;
+  max-height: 80px;
+  height: 13vw;
+  border: 2px solid transparent;
+  border-radius: 50%;
+  background-image: linear-gradient(#f6f6f6, #f6f6f6),
+    linear-gradient(to right, #ff7700, #ff3636aa, #ff00c3);
+  background-origin: border-box;
+  background-clip: content-box, border-box;
+}
+.story-wrapper .story-off {
+  width: 13vw;
+  max-width: 80px;
+  max-height: 80px;
+  height: 13vw;
+  border: 2px solid transparent;
+  border-radius: 50%;
+  background-image: linear-gradient(#f6f6f6, #f6f6f6),
+    linear-gradient(#c4c4c4, #c4c4c4);
+  background-origin: border-box;
+  background-clip: content-box, border-box;
+}
+.story-wrapper img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+.story-wrapper p {
+  margin-top: 10%;
+  margin-bottom: 0%;
+  font-size: 12px;
+}
+
+/* 포스트 - 공통 */
+.left-wrapper {
+  margin-left: 3%;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  /* img 의 height 를 % 로 주고 싶다면, 부모에 height 가 명시되어있어야 한다. */
+}
+.right-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: right;
+  margin-right: 3%;
+}
+
+/* 포스트 - 헤더 */
+.post-header {
+  margin: 1% 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+.post-header .left-wrapper img {
+  width: 7vw;
+  height: 7vw;
+  border-radius: 50%;
+  border: 1px solid lightgray;
+  margin: 0 2%;
+}
+.post-header .left-wrapper p {
+  margin-left: 2%;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+/* 포스트 - 바디 */
+.post-body img {
+  width: 100%;
+}
+.post-body .post-icons-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 1%;
+}
+/* 아이콘 크기가 달라서 부득이 하게 이렇게 만들었으나, 그냥 img 로 처리하는게 맞습니다! */
+.post-body .post-icons-wrapper .left-wrapper .post-icon {
+  margin: 2% 4%;
+  width: 14%;
+}
+.post-body .post-icons-wrapper .left-wrapper .post-icon-2 {
+  margin: 2% 4%;
+  width: 13%;
+}
+.post-body .post-icons-wrapper .right-wrapper img {
+  margin: 2% 4%;
+  width: 11%;
+}
+
+/* 포스트 - 푸터 */
+.post-footer {
+  padding-left: 2%;
+}
+.post-footer .post-like-wrapper {
+  display: flex;
+  align-items: center;
+  margin-left: 1%;
+  margin-top: 1%;
+  margin-bottom: 1%;
+}
+.post-footer .post-like-wrapper img {
+  width: 3vw;
+  border-radius: 50%;
+  border: 1px solid lightgray;
+  margin: 0 1%;
+}
+.post-footer .post-like-wrapper p {
+  margin-bottom: 2%;
+  margin-top: 2%;
+  font-size: 14px;
+}
+.post-footer .post-content-wrapper {
+  display: flex;
+}
+.post-footer .post-content-wrapper .post-author {
+  margin: 0% 2% 0% 2%;
+  font-weight: bold;
+  font-size: 14px;
+}
+.post-footer .post-content-wrapper .post-content {
+  margin: 0%;
+  font-size: 14px;
+}
+.post-footer .post-time {
+  color: gray;
+  font-size: 10px;
+  margin-left: 2%;
+  margin-top: 5%;
+}
+
+/* 푸터 */
+#footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  max-width: 720px;
+  border-top: 1px solid lightgray;
+  background-color: white;
+}
+#footer #icon-wrapper {
+  margin: 4% 6%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+#footer #icon-wrapper img {
+  width: 6%;
+}
