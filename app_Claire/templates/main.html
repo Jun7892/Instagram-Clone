@@ -45,6 +45,18 @@
     <main>
         <div class="feeds">
             <!-- article -->
+
+
+            <form action="/fileupload" method="POST" enctype="multipart/form-data">
+                <input type="file" name="file" />
+                <br><br>
+                <input type="submit" />
+                <input type="reset" />
+            </form>
+
+
+
+
             <article>
                 <header>
                     <div class="profile-of-article">
@@ -68,19 +80,19 @@
                             //     document.getElementById('full').src = 'static/image/like@3x.png';
                             //     document.getElementById('full').id = 'none';
                             // });
-                            // function like() {
-                            //     var myid = document.getElementById("id");
-                            //     // var id = $("#id").val();
-                            //     if (myid == 'none') {
-                            //         $(this).attr('id', 'full');
-                            //         $(this).setAttribute('src', 'static/image/like@4x.png')
-                            //         // $(this).attr('src', 'static/image/like@4x.png');
-                            //     } else if (myid == 'full') {
-                            //         $(this).attr('id', 'none');
-                            //         // $(this).attr('src', 'static/image/like@3x.png');
-                            //         $(this).setAttribute('src', 'static/image/like@3x.png')
-                            //     }
-                            // }
+                            function like() {
+                                var myid = document.getElementById("id");
+                                // var id = $("#id").val();
+                                if (myid == 'none') {
+                                    $(this).attr('id', 'full');
+                                    $(this).setAttribute('src', 'static/image/like@4x.png')
+                                    // $(this).attr('src', 'static/image/like@4x.png');
+                                } else if (myid == 'full') {
+                                    $(this).attr('id', 'none');
+                                    // $(this).attr('src', 'static/image/like@3x.png');
+                                    $(this).setAttribute('src', 'static/image/like@3x.png')
+                                }
+                            }
 
                         </script>
 
@@ -119,6 +131,13 @@
                                         <img class="comment-heart"
                                             src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/bearu/heart.png"
                                             alt="하트" id="heart1">
+
+                                        <script>
+                                            // 하트 full -> 원상태로 복구 구현..!
+                                            $("img").click(function () {
+                                                $('#heart1').css('background-color', 'transparent');
+                                            });
+                                        </script>
 
                                         <img class="comment-heart-liked" src="static/image/liked.png" alt="좋아요된하트">
                                     </div>
@@ -204,20 +223,7 @@
         <!-- main-right -->
         <div class="main-right">
             <div class="myProfile">
-                <img class="pic" src="static/image/Lu6.png" alt="회원님의 프로필 사진">
-                <!-- change profile picture by getting user input  -->
-
-                <!-- <form action="/fileupload" method="POST" enctype="multipart/form-data">
-                    <input type="file" name="file" />
-                    <br><br>
-                    <input type="submit" />
-                    <input type="reset" />
-                </form> -->
-
-
-
-
-                <!-- change profile picture by getting user input  -->
+                <img class="pic" src="static/image/Lu6.png" alt="그루트님의 프로필 사진">
                 <div>
                     <span class="userID point-span">{{nickname}}</span>
                     <!-- ID로 어떻게? -->
@@ -256,6 +262,8 @@
                                     $(this).parent().css('background', 'transparent');
                                 });
                             </script>
+
+
                         </div>
                         <div class="profile-text">
                             <span class="userID point-span">oh_my__life</span>
@@ -271,6 +279,7 @@
                                 });
                             </script>
                         </div>
+
                         <div class="profile-text">
                             <span class="userID point-span">dntlrdl</span>
                             <span class="sub-span">33분 전</span>
@@ -310,7 +319,7 @@
                         <span class="btn-follow">팔로우</span>
                         <script> // css내 색 변경 및 팔로우-> 요청됨으로 텍스트 변경 -> id 달 필요 없음!
                             $(".btn-follow").click(function () {
-                                $(this).css('color', '#3b3d3f');
+                                $(this).css('color', '#303335');
                                 $(this).text('요청됨')
                             });
                         </script>
@@ -326,7 +335,7 @@
                         <span class="btn-follow">팔로우</span>
                         <script> // css내 색 변경 및 팔로우-> 요청됨으로 텍스트 변경 -> id 달 필요 없음!
                             $(".btn-follow").click(function () {
-                                $(this).css('color', '#3b3d3f');
+                                $(this).css('color', '#303335');
                                 $(this).text('요청됨')
                             });
                         </script>
@@ -342,7 +351,7 @@
                         <span class="btn-follow">팔로우</span>
                         <script> // css내 색 변경 및 팔로우-> 요청됨으로 텍스트 변경 -> id 달 필요 없음!
                             $(".btn-follow").click(function () {
-                                $(this).css('color', '#3b3d3f');
+                                $(this).css('color', '#303335');
                                 $(this).text('요청됨')
                             });
                         </script>
