@@ -135,7 +135,7 @@
                                         <script>
                                             // 하트 full -> 원상태로 복구 구현..!
                                             $("img").click(function () {
-                                                $('#aaa').css('background-color', 'transparent');
+                                                $('#heart1').css('background-color', 'transparent');
                                             });
                                         </script>
 
@@ -317,6 +317,12 @@
                             </div>
                         </div>
                         <span class="btn-follow">팔로우</span>
+                        <script> // css내 색 변경 및 팔로우-> 요청됨으로 텍스트 변경 -> id 달 필요 없음!
+                            $(".btn-follow").click(function () {
+                                $(this).css('color', '#303335');
+                                $(this).text('요청됨')
+                            });
+                        </script>
                     </li>
                     <li>
                         <div class="recommend-friend-profile">
@@ -327,6 +333,12 @@
                             </div>
                         </div>
                         <span class="btn-follow">팔로우</span>
+                        <script> // css내 색 변경 및 팔로우-> 요청됨으로 텍스트 변경 -> id 달 필요 없음!
+                            $(".btn-follow").click(function () {
+                                $(this).css('color', '#303335');
+                                $(this).text('요청됨')
+                            });
+                        </script>
                     </li>
                     <li>
                         <div class="recommend-friend-profile">
@@ -337,6 +349,12 @@
                             </div>
                         </div>
                         <span class="btn-follow">팔로우</span>
+                        <script> // css내 색 변경 및 팔로우-> 요청됨으로 텍스트 변경 -> id 달 필요 없음!
+                            $(".btn-follow").click(function () {
+                                $(this).css('color', '#303335');
+                                $(this).text('요청됨')
+                            });
+                        </script>
                     </li>
                 </ul>
             </div>

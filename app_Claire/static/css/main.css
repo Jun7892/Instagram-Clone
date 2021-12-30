@@ -385,6 +385,7 @@ ul.story-list .profile-text {
     color: #0095f6;
     font-weight: 600;
     font-size: 12px;
+    cursor: pointer;
 }
 .recommend-friend-profile {
     display: flex;
