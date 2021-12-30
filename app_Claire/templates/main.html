@@ -13,6 +13,12 @@
 
     <link rel="icon" href="{{ url_for('static', filename='image/favicon.png') }}">
     <link rel="instagram-icon" href="{{ url_for('static', filename='image/insta-logo.png') }}">
+    <script>
+        {% if msg %}
+        alert("{{ msg }}")
+        {% endif %}
+
+    </script>
 </head>
 
 <body>
@@ -39,11 +45,18 @@
     <main>
         <div class="feeds">
             <!-- article -->
-            <form action="/upload" method="post" id="uploadForm" enctype="multipart/form-data">
-                <label>이미지 첨부</label>
-                <input type="file" name="image" class="form-control" placeholder="">
-                <input type="submit" class="btn btn-primary btn_location" value="Submit">
+
+
+            <form action="/display" method="POST" enctype="multipart/form-data">
+                <input type="file" name="file" />
+                <br><br>
+                <input type="submit" />
+                <input type="reset" />
             </form>
+
+
+
+
             <article>
                 <header>
                     <div class="profile-of-article">
@@ -58,14 +71,35 @@
                 </div>
                 <div class="icons-react">
                     <div class="icons-left">
-                        <img class="icon-react" id="heart1"
-                            src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/bearu/heart.png" alt="하트">
-
                         <script> // 하트 full 구현
-                            $("img").click(function () {
-                                document.getElementById('heart1').src = 'static/image/like@4x.png';
-                            });
+                            // $("img").click(function () {
+                            //     document.getElementById('none').src = 'static/image/like@4x.png';
+                            //     document.getElementById('none').id = 'full';
+                            // });
+                            // $("img").click(function () {
+                            //     document.getElementById('full').src = 'static/image/like@3x.png';
+                            //     document.getElementById('full').id = 'none';
+                            // });
+                            function like() {
+                                var myid = document.getElementById("id");
+                                // var id = $("#id").val();
+                                if (myid == 'none') {
+                                    $(this).attr('id', 'full');
+                                    $(this).setAttribute('src', 'static/image/like@4x.png')
+                                    // $(this).attr('src', 'static/image/like@4x.png');
+                                } else if (myid == 'full') {
+                                    $(this).attr('id', 'none');
+                                    // $(this).attr('src', 'static/image/like@3x.png');
+                                    $(this).setAttribute('src', 'static/image/like@3x.png')
+                                }
+                            }
+
                         </script>
+
+                        <img class="icon-react" id="none"
+                            src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/bearu/heart.png"
+                            onclick="like()" alt="하트">
+
 
                         <img class="icon-react"
                             src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/bearu/comment.png" alt="말풍선">
@@ -98,10 +132,10 @@
                                             src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/bearu/heart.png"
                                             alt="하트" id="heart1">
 
-                                        <script> // 하트 full -> 원상태로 복구 구현..!
+                                        <script>
+                                            // 하트 full -> 원상태로 복구 구현..!
                                             $("img").click(function () {
                                                 $('#aaa').css('background-color', 'transparent');
-
                                             });
                                         </script>
 
@@ -204,10 +238,10 @@
                 </div>
                 <ul class="story-list">
                     <li>
-                        <div class="gradient-wrap" id="aaa">
+                        <div class="gradient-wrap">
                             <img class="img-profile story" src="static/image/Lu1.jpg" alt="star_wars님의 프로필 사진">
 
-                            <script> // css내 백그라운드 색 변경 
+                            <script> // css내 백그라운드 색 변경 -> id 달 필요 없음!
                                 $("img").click(function () {
                                     $(this).parent().css('background', 'transparent');
                                 });
@@ -220,7 +254,7 @@
                         </div>
                     </li>
                     <li>
-                        <div class="gradient-wrap" id="bbb">
+                        <div class="gradient-wrap">
                             <img class="img-profile story" src="static/image/Lu4.jpg" alt="oh_my__life님의 프로필 사진">
 
                             <script> // parent tag인 div불러와서 css내 백그라운드 색 변경 

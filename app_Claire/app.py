@@ -2,11 +2,13 @@ from pymongo import MongoClient
 import jwt
 import datetime
 import hashlib
-from flask import Flask, render_template, jsonify, request, redirect, url_for
-# from werkzeug.utils import secure_filename
+from flask import Flask, render_template, jsonify, request, redirect, url_for, flash,send_from_directory
+from werkzeug.utils import secure_filename
 import datetime
 import certifi
 import gridfs
+import os
+
 ca = certifi.where()
 app = Flask(__name__)
 client = MongoClient('mongodb+srv://test:sparta@cluster0.bep7j.mongodb.net/Cluster0?retryWrites=true&w=majority', tlsCAFile=ca)
@@ -15,7 +17,7 @@ db = client.dbsparta
 
 app = Flask(__name__)
 app.config["TEMPLATES_AUTO_RELOAD"] = True
-app.config['UPLOAD_FOLDER'] = "./static/profile_pics"
+# app.config['UPLOAD_FOLDER'] = "./static/profile_pics"
 
 SECRET_KEY = 'SPARTA'
 
@@ -71,30 +73,43 @@ def chae_main():
 def index():
     return render_template('main.html')
 
-# @app.route("/logout")
-# def logout():
-#     # """Logout Form"""
-#     # session['logged_in'] = False
-#     return redirect(url_for('home'))
 
-@app.route("/upload", methods=['POST'])
-def upload():
-	## file upload ##
-    img = request.files['image']
-    
-    ## GridFs를 통해 파일을 분할하여 DB에 저장하게 된다
-    fs = gridfs.GridFS(db)
-    fs.put(img, filename = 'name')
-    
-    ## file find ##
-    data = client.grid_file.fs.files.find_one({'filename':'name'})
-    
-    ## file download ##
-    # my_id = data['_id']
-    # outputdata = fs.get(my_id).read()
-    # output = open('./images/'+'back.jpeg', 'wb')
-    # output.write(outputdata)
-    return jsonify({'msg':'저장에 성공했습니다.'})
+
+
+UPLOAD_FOLDER = 'static/image'
+ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
+
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024   # RequestEntityTooLarge if more than 16mb
+
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
+
+
+@app.route('/display', methods = ['GET', 'POST'])
+def save_file():
+    if request.method == 'POST':
+        if 'file' not in request.files:
+            flash('No file part')
+            return redirect(request.url)
+        file = request.files['file']
+        if file.filename == '':
+            flash('No selected file')
+            return redirect(request.url)
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            return render_template('main.html', msg="업로드 되었습니다.")
+
+
+@app.route('/uploads/<filename>')
+def uploaded_file(filename):
+    return send_from_directory(app.config['UPLOAD_FOLDER'],
+                               filename)
+
+
+
 
 #################################
 ##  로그인을 위한 API            ##
