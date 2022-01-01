@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html>
 
 <head>
     <meta charset="UTF-8">
@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
     <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
 
 
     <link rel="icon" href="{{ url_for('static', filename='image/favicon.png') }}">
@@ -19,6 +20,88 @@
         {% if msg %}
         alert("{{ msg }}")
         {% endif %}
+
+        $(document).ready(function () {
+            show_comment();
+        });
+        function show_comment() {
+            $('#order-box').empty()
+            $.ajax({
+                type: 'GET',
+                url: '/comment',
+                data: {},
+                success: function (response) {
+                    let rows = response['comments']
+                    for (let i = 0; i < rows.length; i++) {
+                        let nick = rows[i]['nick']
+                        let comment = rows[i]['comment']
+
+                        let temp_html = `<li>
+                                <span><span class="point-span userID">${nick}</span>${comment}</span>
+                                <div>
+                                    <img class="comment-more"
+                                        src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/bearu/more.png"
+                                        alt="more">
+                                    <div class="comment-like">
+                                        <img class="comment-heart"
+                                            src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/bearu/heart.png"
+                                            alt="하트">
+                                        <img class="comment-heart-liked" src="static/image/liked.png" alt="좋아요된하트">
+                                    </div>
+                                </div>
+                            </li>`
+                        $('#post-comments-here').append(temp_html)
+                    }
+
+                }
+            });
+        }
+        function save_comment() {
+            // let comment = $('#input-comment').val()          // 참조 2
+            // let nick = get_user_nick()                       // 참조 1
+            $.ajax({                                            // GET nick name
+                type: 'GET',
+                url: '/api/nick',
+                data: {},
+                success: function (response) {
+                    let nick = response['nickname'];   // QQQ1. ajax 안에서 선언한 variable 밖에서 어떻게 사용? comment_save와 get_user_nick을 두개 따로 만들어서 선언하니 undefined떠서 ajax안에 ajax 한 것 (참조 1)
+                    let comment = $('#input-comment2').val()   // QQQ2. 위의 ajax에서 let을 선언했는데 comment(참조 2)가 ""로 불러와지지 않아서 이렇게 만듦. 원래 안되는건지? 함수처럼 생각하면 안되는 부분인가요
+                    $.ajax({                                    // POST comment
+                        type: 'POST',
+                        url: '/comment',
+                        data: { nickname_give: nick, comment_give: comment },
+                        fail: function (response) {
+                            alert(response['msg']);
+                        },
+                        success: function (response) {
+                            alert(response['msg'])
+                            window.location.reload()
+                        }
+                    });
+                }
+            });
+        }
+        // QQQ0. flask route에서 토큰 읽는 부분 중복되는 것 줄이려고 /api/nick에서 불러옴. (토큰 읽는 것 외의 방법은 없나요...flask_login.current_user 같은..?)
+        // + savecomment()에서 function안만들고 바로 /api/nick내의 api_valid() 함수를 불러오는 것은 불가? 
+        function get_user_nick() {
+            $.ajax({
+                type: 'GET',
+                url: '/api/nick',
+                data: {},
+                success: function (response) {  // QQQ3. if else로 구성해야하는지? 그럴 경우에는 if (response['result'] == 'success') { 이렇게 써야하는지?
+                    // alert(response['nickname'])    
+                    return response['nickname'];   // QQQ1.
+                }
+            });
+        }
+        // QQQ. 하단 script아닌 function으로 remain 하면서 onclick으로 적용 가능한 법?
+        // function follow_user() {
+        //     $(".btn-follow").click(function () {
+        //         $(this).css('color', '#303335');
+        //         $(this).text('요청됨')
+        //     });
+        // }
+
     </script>
 </head>
 
@@ -64,14 +147,10 @@
                 </div>
                 <div class="icons-react">
                     <div class="icons-left">
-                        <script>
-
-                        </script>
 
                         <img class="icon-react" id="none"
                             src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/bearu/heart.png"
                             onclick="like()" alt="하트">
-
 
                         <img class="icon-react"
                             src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/bearu/comment.png" alt="말풍선">
@@ -103,8 +182,6 @@
                                         <img class="comment-heart"
                                             src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/bearu/heart.png"
                                             alt="하트" id="heart1">
-
-
 
                                         <img class="comment-heart-liked" src="static/image/liked.png" alt="좋아요된하트">
                                     </div>
@@ -158,7 +235,7 @@
                         <p><span class="point-span userID">7조다</span>오늘은 옥수수 캐러감</p>
                     </div>
                     <div class="comment-section">
-                        <ul class="comments">
+                        <ul class="comments" id="post-comments-here">
                             <li>
                                 <span><span class="point-span userID">claire-says._.</span>나는 감자.</span>
                                 <div>
@@ -183,11 +260,16 @@
                 <div class="hl"></div>
                 <div class="comment">
                     <input id="input-comment2" class="input-comment" type="text" placeholder="댓글 달기...">
-                    <button type="submit" class="submit-comment" disabled>게시</button>
+                    <button id="submit-comment2" class="submit-comment" type="submit" onclick="save_comment()"
+                        disabled>게시</button>
                 </div>
+
             </article>
 
         </div>
+        <!--                                                                                                           -->
+        <!--                                           << story section >>                                             -->
+        <!--                                                                                                           -->
         <!-- main-right -->
         <div class="main-right">
             <div class="myProfile">
@@ -199,7 +281,6 @@
                     <span class="sub-span">{{id}}</span>
                 </div>
             </div>
-            <!-- story section -->
             <div class="section-story">
                 <div class="menu-title">
                     <span class="sub-title">스토리</span>
@@ -282,46 +363,41 @@
                             <img class="img-profile" src="static/image/okk2.jpg" alt="renebaebae님의 프로필 사진">
                             <div class="profile-text">
                                 <span class="userID point-span">옥수수</span>
-                                <span class="sub-span">구황작물님 외 2명이 팔로우합니다</span>
+                                <span class="sub-span">johnnyjsuh님 외 2명이 팔로우합니다</span>
                             </div>
                         </div>
                         <span class="btn-follow">팔로우</span>
-                        <script> // css내 색 변경 및 팔로우-> 요청됨으로 텍스트 변경 -> id 달 필요 없음!
-                            $(".btn-follow").click(function () {
-                                $(this).css('color', '#303335');
-                                $(this).text('요청됨')
-                            });
-                        </script>
-                    </li>
-                    <li>
-                        <div class="recommend-friend-profile">
-                            <img class="img-profile" src="static/image/gamja_crop.jpg" alt="감자님의 프로필 사진">
-                            <div class="profile-text">
-                                <span class="userID point-span">감자</span>
-                                <span class="sub-span">johnnyjsuh님이 팔로우합니다</span>
-                            </div>
-                        </div>
-                        <span class="btn-follow">팔로우</span>
-                        <script> // css내 색 변경 및 팔로우-> 요청됨으로 텍스트 변경 -> id 달 필요 없음!
-                            $(".btn-follow").click(function () {
-                                $(this).css('color', '#303335');
-                                $(this).text('요청됨')
-                            });
-                        </script>
                     </li>
                     <li>
                         <div class="recommend-friend-profile">
                             <img class="img-profile" src="static/image/Lu4.jpg" alt="어쩔티비님의 프로필 사진">
                             <div class="profile-text">
                                 <span class="userID point-span">어쩔티비</span>
-                                <span class="sub-span">jennierubyjane님 외 5명이 팔로우합...</span>
+                                <span class="sub-span">Jam_mini님 외 5명이 팔로우합...</span>
                             </div>
                         </div>
                         <span class="btn-follow">팔로우</span>
-                        <script> // css내 색 변경 및 팔로우-> 요청됨으로 텍스트 변경 -> id 달 필요 없음!
-                            $(".btn-follow").click(function () {
-                                $(this).css('color', '#303335');
-                                $(this).text('요청됨')
+
+                    </li>
+                    <script> // css내 색 변경 및 팔로우-> 요청됨으로 텍스트 변경 -> id 달 필요 없음!
+                        $(".btn-follow").click(function () {
+                            $(this).css('color', '#303335');
+                            $(this).text('요청됨');
+                        });
+
+                    </script>
+                    <li>
+                        <div class="recommend-friend-profile">
+                            <img class="img-profile" src="static/image/gamja_crop.jpg" alt="감자님의 프로필 사진">
+                            <div class="profile-text">
+                                <span class="userID point-span">감자king</span>
+                                <span class="sub-span">구황작물님이 팔로우합니다</span>
+                            </div>
+                        </div>
+                        <span class="btn-follow gamja">팔로우</span>
+                        <script>
+                            $(".gamja").click(function () {
+                                alert('이런..어쩌나,,감자king님이 팔로우를 거절하였습니다. 🤭')
                             });
                         </script>
                     </li>
@@ -336,7 +412,8 @@
             </footer>
         </div>
     </main>
-    <script src="js/main.js"></script>
+    <script src="{{url_for('static', filename='js/main.js')}}"></script>
+
 </body>
 
 </html>

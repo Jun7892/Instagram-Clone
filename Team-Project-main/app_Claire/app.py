@@ -49,9 +49,6 @@ def login():
     msg = request.args.get("msg")
     return render_template('login.html', msg=msg)
 
-# @app.route('/register')
-# def register():
-#     return render_template('register.html')
 
 @app.route('/register/', methods=['GET'])
 def register():
@@ -73,7 +70,6 @@ def chae_main():
 @app.route('/index')
 def index():
     return render_template('main.html')
-
 
 
 
@@ -103,11 +99,12 @@ def save_file():
             file.save(os.path.abspath(UPLOAD_FOLDER+filename))
             return render_template('main.html', msg="업로드 되었습니다.")
 
-
 @app.route('/uploads/<filename>')
 def uploaded_file(filename):
     return send_from_directory(app.config['UPLOAD_FOLDER'],
                                filename)
+
+
 #코멘트 쓰기 및 DB에서 읽어오기 api입니다!
 @app.route("/comment", methods=["POST"])
 def homework_post():

@@ -13,12 +13,12 @@
 
     <link rel="icon" href="{{ url_for('static', filename='image/favicon.png') }}">
     <link rel="instagram-icon" href="{{ url_for('static', filename='image/insta-logo.png') }}">
-<style>
-            .mycards > .card {
+    <style>
+        .mycards>.card {
             margin-top: 10px;
             margin-bottom: 10px;
         }
-</style>
+    </style>
     <script>
         {% if msg %}
         alert("{{ msg }}")
@@ -150,13 +150,13 @@
                                             });
                                             //코멘트 저장함수
                                             function save_comment() {
-                                                {#let name = $('#name').val()#}
+                                                {#let name = $('#name').val()# }
                                                 let comment = $('#comment').val()
 
                                                 $.ajax({
                                                     type: 'POST',
                                                     url: '/comment',
-                                                    data: {name_give: name, comment_give: comment},
+                                                    data: { name_give: name, comment_give: comment },
                                                     success: function (response) {
                                                         alert(response['msg'])
                                                         window.location.reload()
@@ -172,7 +172,7 @@
                                                     success: function (response) {
                                                         let rows = response['cheer']
                                                         for (let i = 0; i < rows.length; i++) {
-                                                            {#let name = rows[i]['name']#}
+                                                            {#let name = rows[i]['name']# }
                                                             let comment = rows[i]['comment']
                                                             //코멘트 창
                                                             let temp_html = `<div class="card">
@@ -199,7 +199,7 @@
                         </ul>
                         <div class="time-log">
 
-{#                            코멘트 리스트#}
+                            {# 코멘트 리스트#}
                             <div class="mycards" id="comment-list"></div>
                             <span>32분 전</span>
                         </div>
@@ -207,10 +207,10 @@
                 </div>
                 <div class="hl"></div>
                 <div class="comment">
-{#                    <input id="input-comment" class="input-comment" type="text" placeholder="댓글 달기...">#}
-{#                    코멘트 버튼입니다#}
+                    {# <input id="input-comment" class="input-comment" type="text" placeholder="댓글 달기...">#}
+                    {# 코멘트 버튼입니다#}
                     <input id="comment" class="comments" type="text" placeholder="댓글 달기...">
-{#                    <button type="submit" class="submit-comment" disabled>게시</button>#}
+                    {# <button type="submit" class="submit-comment" disabled>게시</button>#}
                     <button onclick="save_comment()" type="button" class="btn btn-dark">게시</button>
                 </div>
             </article>

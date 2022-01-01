@@ -251,6 +251,7 @@ nav img {
     z-index: 100;
     background: rgba(39, 39, 39, 0.7);
 }
+
 .bigPicture {
     position: relative;
     display: flex;
@@ -259,7 +260,7 @@ nav img {
     cursor: pointer;
 }
 
-.bigPicture img {
+.bigPicture ~ img {
     width: 600px;
     cursor: pointer;
 }
