@@ -260,7 +260,7 @@ nav img {
     cursor: pointer;
 }
 
-.bigPicture ~ img {
+.bigPicture img {
     width: 600px;
     cursor: pointer;
 }
