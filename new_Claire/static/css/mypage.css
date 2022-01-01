@@ -264,3 +264,21 @@ nav img {
     width: 600px;
     cursor: pointer;
 }
+
+.profileedit {
+    display: flex;
+}
+
+.edit {
+    margin-left: 100px;
+    border: none;
+    color: #8a8a8a;
+    transition:all 0.9s, color 0.8;
+
+}
+
+.edit:hover {
+    box-shadow: 200px 0 0 0 rgba(0,0,0,0.25) inset, -200px 0 0 0 rgba(0,0,0,0.25) inset;
+    color: #DBDBDB;
+    border-radius: 10%;
+}

@@ -9,41 +9,46 @@ import certifi
 
 ca = certifi.where()
 app = Flask(__name__)
-client = MongoClient('mongodb+srv://test:sparta@cluster0.bep7j.mongodb.net/Cluster0?retryWrites=true&w=majority', tlsCAFile=ca)
+client = MongoClient('mongodb+srv://test:sparta@cluster0.bep7j.mongodb.net/Cluster0?retryWrites=true&w=majority',
+                     tlsCAFile=ca)
 db = client.dbsparta
 
 app.config["TEMPLATES_AUTO_RELOAD"] = True
 
 SECRET_KEY = 'SPARTA'
 
+
 #################################
 ##  HTML을 주는 부분             ##
 #################################
 @app.route('/')
 def home():
-		# 현재 이용자의 컴퓨터에 저장된 cookie 에서 mytoken 을 가져옵니다.
+    # 현재 이용자의 컴퓨터에 저장된 cookie 에서 mytoken 을 가져옵니다.
     token_receive = request.cookies.get('mytoken')
     try:
-		# 암호화되어있는 token의 값을 우리가 사용할 수 있도록 디코딩(암호화 풀기)해줍니다!
+        # 암호화되어있는 token의 값을 우리가 사용할 수 있도록 디코딩(암호화 풀기)해줍니다!
         payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
         user_info = db.user.find_one({"id": payload['id']})
         return render_template('main.html', nickname=user_info["nick"], id=user_info["id"])
-		# 만약 해당 token의 로그인 시간이 만료되었다면, 아래와 같은 코드를 실행합니다.
+    # 만약 해당 token의 로그인 시간이 만료되었다면, 아래와 같은 코드를 실행합니다.
     except jwt.ExpiredSignatureError:
         return redirect(url_for("login"))
         # return redirect(url_for("login", msg="로그인 시간이 만료되었습니다."))
     except jwt.exceptions.DecodeError:
-		# 만약 해당 token이 올바르게 디코딩되지 않는다면, 아래와 같은 코드를 실행합니다.
+        # 만약 해당 token이 올바르게 디코딩되지 않는다면, 아래와 같은 코드를 실행합니다.
         return redirect(url_for("login", msg="로그인 정보가 존재하지 않습니다."))
+
 
 @app.route('/login')
 def login():
     msg = request.args.get("msg")
     return render_template('login.html', msg=msg)
 
+
 @app.route('/register/', methods=['GET'])
 def register():
     return render_template('register.html')
+
 
 @app.route('/main')
 def main():
@@ -64,14 +69,17 @@ def mypage():
     try:
         payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
         user_info = db.user.find_one({"id": payload['id']})
-        return render_template('mypage.html', mytoken=token_receive, nickname=user_info["nick"], id=user_info["id"], posts=user_info["posts"], followers=user_info["followers"], following=user_info["following"])
+        return render_template('mypage.html', mytoken=token_receive, nickname=user_info["nick"], id=user_info["id"],
+                               posts=user_info["posts"], followers=user_info["followers"],
+                               following=user_info["following"])
     except jwt.ExpiredSignatureError:
         return redirect(url_for("login", msg="로그인 시간이 만료되었습니다."))
     except jwt.exceptions.DecodeError:
         return redirect(url_for("login", msg="로그인 정보가 존재하지 않습니다."))
 
+
 @app.route("/comment", methods=["POST"])
-def comment_post():    
+def comment_post():
     comment_receive = request.form['comment_give']
     nickname_receive = request.form['nickname_give']
     doc = {
@@ -85,8 +93,8 @@ def comment_post():
 
 @app.route("/comment", methods=["GET"])
 def comment_get():
-    comments_list = list(db.comments.find({},{'_id':False}))
-    return jsonify({'comments':comments_list})
+    comments_list = list(db.comments.find({}, {'_id': False}))
+    return jsonify({'comments': comments_list})
 
 
 ######## ================ #######
@@ -110,7 +118,8 @@ def api_register():
 
     pw_hash = hashlib.sha256(pw_receive.encode('utf-8')).hexdigest()
 
-    db.user.insert_one({'id': id_receive, 'pw': pw_hash, 'nick': nickname_receive, 'posts':posts_receive, 'followers':followers_receive, 'following':following_receive})
+    db.user.insert_one({'id': id_receive, 'pw': pw_hash, 'nick': nickname_receive, 'posts': posts_receive,
+                        'followers': followers_receive, 'following': following_receive})
 
     return jsonify({'result': 'success'})
 
@@ -141,7 +150,8 @@ def api_login():
         token = jwt.encode(payload, SECRET_KEY, algorithm='HS256')
         userinfo = db.user.find_one({'id': request.form['id_give']}, {'_id': 0})
         # token을 줍니다.
-        return jsonify({'result': 'success', 'token': token, 'msg': userinfo['nick'] + '님, 안녕하세요!'}) # 'nick': userinfo['nick'] 은 찾아지는데 nick에 넣어서 넘겨지지 않음,,그래서 msg로 넘김 
+        return jsonify({'result': 'success', 'token': token, 'msg': userinfo[
+                                                                        'nick'] + '님, 안녕하세요!'})  # 'nick': userinfo['nick'] 은 찾아지는데 nick에 넣어서 넘겨지지 않음,,그래서 msg로 넘김
     # 찾지 못하면
     else:
         return jsonify({'result': 'fail', 'msg': '아이디/비밀번호가 일치하지 않습니다.'})
@@ -158,12 +168,9 @@ def api_valid():
         # token을 시크릿키로 디코딩합니다.
         # 보실 수 있도록 payload를 print 해두었습니다. 우리가 로그인 시 넣은 그 payload와 같은 것이 나옵니다.
         payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
-        
-        
+
         # print(type(payload))
         # QQQ. 얘는 <class 'dict'> 이던데 왜 얘를 comment_post()에서 api_valid()로 받으니까 <class 'flask.wrappers.Response'>인지?
-        
-
 
         # payload 안에 id가 들어있습니다. 이 id로 유저정보를 찾습니다.
         # 여기에선 그 예로 닉네임을 보내주겠습니다.
@@ -181,4 +188,30 @@ def api_valid():
 if __name__ == '__main__':
     app.run('0.0.0.0', port=5000, debug=True)
 
+####### image upload to folder #######
+UPLOAD_FOLDER = 'Team-project/new_Claire/static/image/'
+ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # RequestEntityTooLarge if more than 16mb
+
+
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
+
+
+@app.route('/fileupload', methods=['GET', 'POST'])
+def save_file():
+    if request.method == 'POST':
+        if 'file' not in request.files:
+            flash('No file part')
+            return redirect(request.url)
+        file = request.files['file']
+        if file.filename == '':
+            flash('No selected file')
+            return redirect(request.url)
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            file.save(os.path.abspath(UPLOAD_FOLDER + filename))
+            return render_template('main.html', msg="업로드 되었습니다.")
