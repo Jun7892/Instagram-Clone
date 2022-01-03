@@ -22,7 +22,7 @@
 ### ⚙ 적용기술 및 구현 기능 적용 기술
 
 Front-End : JavaScript, HTML&CSS\
-Back-End : Flask, Python\
+Back-End : Flask, Python, MongoDB\
 Common : Git, Github, Slack, Notion
 
 ### 📌 주요 기능
