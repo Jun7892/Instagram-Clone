@@ -37,18 +37,14 @@
                         // var nickname = response['nick'];
                         // alert('{{nickname}} 님, 안녕하세요!')    마찬가지로 nickname넘긴 것을 변수 선언하고 받을 수가 없음
                         alert(response['msg']) // alert으로 대체함
-                        window.location.href = '/'
+                        window.location.href = '/main'
                     } else {
                         alert(response['msg'])
                     }
                 }
             })
         }
-        function logout() {
-            $.removeCookie('mytoken');
-            alert('{{ nickname }}님 안녕히 가세요 🥲')
-            window.location.href = '/login'
-        }
+
 
     </script>
 

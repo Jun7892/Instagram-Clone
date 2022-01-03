@@ -12,7 +12,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
 
-
     <link rel="icon" href="{{ url_for('static', filename='image/favicon.png') }}">
     <link rel="instagram-icon" onclick='window.location.href = "/register"'
         href="{{ url_for('static', filename='image/insta-logo.png') }}">
@@ -25,7 +24,6 @@
             show_comment();
         });
         function show_comment() {
-            $('#order-box').empty()
             $.ajax({
                 type: 'GET',
                 url: '/comment',
@@ -52,20 +50,20 @@
                             </li>`
                         $('#post-comments-here').append(temp_html)
                     }
-
                 }
             });
         }
+
         function save_comment() {
-            // let comment = $('#input-comment').val()          // 참조 2
-            // let nick = get_user_nick()                       // 참조 1
+            // var comment = $('#input-comment').val()          // 참조 2
+            // var nick = get_user_nick()                       // 참조 1
             $.ajax({                                            // GET nick name
                 type: 'GET',
                 url: '/api/nick',
                 data: {},
                 success: function (response) {
                     let nick = response['nickname'];   // QQQ1. ajax 안에서 선언한 variable 밖에서 어떻게 사용? comment_save와 get_user_nick을 두개 따로 만들어서 선언하니 undefined떠서 ajax안에 ajax 한 것 (참조 1)
-                    let comment = $('#input-comment2').val()   // QQQ2. 위의 ajax에서 let을 선언했는데 comment(참조 2)가 ""로 불러와지지 않아서 이렇게 만듦. 원래 안되는건지? 함수처럼 생각하면 안되는 부분인가요
+                    let comment = $('#input-comment2').val()   // QQQ2. 위의 ajax에서 let을 선언했는데 comment(참조 2)가 ""로 불러와지지 않아서 이렇게 만듦. 원래 안되는건지? 함수처럼 생각하면 안되는 부분인가요.
                     $.ajax({                                    // POST comment
                         type: 'POST',
                         url: '/comment',
@@ -81,6 +79,7 @@
                 }
             });
         }
+
         // QQQ0. flask route에서 토큰 읽는 부분 중복되는 것 줄이려고 /api/nick에서 불러옴. (토큰 읽는 것 외의 방법은 없나요...flask_login.current_user 같은..?)
         // + savecomment()에서 function안만들고 바로 /api/nick내의 api_valid() 함수를 불러오는 것은 불가? 
         function get_user_nick() {
@@ -88,31 +87,19 @@
                 type: 'GET',
                 url: '/api/nick',
                 data: {},
-                success: function (response) {  // QQQ3. if else로 구성해야하는지? 그럴 경우에는 if (response['result'] == 'success') { 이렇게 써야하는지?
-                    // alert(response['nickname'])    
+                success: function (response) {
                     return response['nickname'];   // QQQ1.
                 }
             });
         }
-        // QQQ. 하단 script아닌 function으로 remain 하면서 onclick으로 적용 가능한 법?
-        // function follow_user() {
-        //     $(".btn-follow").click(function () {
-        //         $(this).css('color', '#303335');
-        //         $(this).text('요청됨')
-        //     });
-        // }
-
     </script>
 </head>
-
 
 <body>
     <!-- navigation -->
     <nav>
         <div class="nav-container">
             <div class="nav-1">
-                <!-- <img src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/bearu/logo.png" alt="logo_img">
-            <div class="vl"></div> -->
                 <img class="logo_instagram_txt" src="{{ url_for('static', filename='image/logo_text.png') }}"
                     onclick='window.location.href = "/main"' alt="logo_text">
             </div>
@@ -128,10 +115,7 @@
     </nav>
     <!-- main -->
     <main>
-        <div class="feeds">
-            <!-- article -->
-
-
+        <div class="feeds" id="tag-attach-here">
 
             <article>
                 <header>
@@ -263,14 +247,11 @@
                     <button id="submit-comment2" class="submit-comment" type="submit" onclick="save_comment()"
                         disabled>게시</button>
                 </div>
-
             </article>
-
         </div>
         <!--                                                                                                           -->
         <!--                                           << story section >>                                             -->
         <!--                                                                                                           -->
-        <!-- main-right -->
         <div class="main-right">
             <div class="myProfile">
                 <img class="pic" src="static/image/Lu6.png" id="nav" onclick='window.location.href = "/mypage"'
@@ -403,6 +384,32 @@
                     </li>
                 </ul>
             </div>
+
+
+            <div class="section-story" style="margin-top: 20px;">
+                <div class="menu-title">
+                    <span class="sub-title">오늘의 TOP 30 태그</span>
+                    <span class="find-more">📍대한민국</span>
+                </div>
+                <ul class="story-list">
+                    {% set count = 1 %}
+                    {% for i in tags %}
+                    <li>
+                        <div>
+                            <img class="img-profile story" src="static/image/ranking.png">
+                        </div>
+                        <div class="profile-text">
+                            <span class="userID point-span">{{ i }}</span>
+                            <span class="sub-span">{{tags[i]}}</span>
+                        </div>
+
+                    </li>
+
+                    {% endfor %}
+                </ul>
+            </div>
+
+
             <footer>
                 <p class="insta-sccript">
                     소개 ∙ 도움말 ∙ 홍보 센터 ∙ API ∙ 채용 정보 ∙ 개인정보처리방침 ∙ <br>약관 ∙ 위치 ∙ 인기계정 ∙ 해시태그 ∙ 언어
