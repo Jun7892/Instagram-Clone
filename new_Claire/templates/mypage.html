@@ -12,23 +12,30 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
     <title>Lupistagram</title>
+    <style>
+        input[type="file"] {
+            display: none;
+        }
 
+        #btn_upload {
+            border: 1px solid #ccc;
+            display: inline-block;
+            padding: 6px 12px;
+            cursor: pointer;
+        }
+    </style>
     <script>
 
         {% if msg %}
         alert("{{ msg }}")
+        window.location.href = '/mypage'
         {% endif %}
 
-
-        // 로그아웃은 내가 가지고 있는 토큰만 쿠키에서 없애면 됩니다.
         function logout() {
             $.removeCookie('mytoken');
             alert('{{ nickname }}님 안녕히 가세요 🥲')
             window.location.href = '/login'
         }
-
-
-
 
     </script>
 </head>
@@ -53,27 +60,27 @@
             </div>
         </nav>
 
+
         <div id="post-container">
             <div class="post-wrapper">
                 <div class="post-header">
                     <div class="right-wrapper">
-                        <img class="pfp" src="static/image/Lu6.png" align="left" vspace="10" hspace="10">
-                        <span style="font-size:5px">&nbsp;</span>
-                        <div class="profileedit">
-                            <span style="font-size:30px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{nickname}}</span>
-                            <button type="button" class="edit">profile edit</button>
-                        </div>
-                        <span style="font-size:10px">&nbsp;</span>
-
+                        <img class="pfp" src="{{file_src}}" align="left">
+                        <span style="font-size:30px; margin-top:5px">{{nickname}} <div
+                                style="font-size:25px; margin-top:5px">{{id}}
+                            </div> </span>
                         <span
-                            style="display:inline">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{posts}}&nbsp;posts&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{followers}}&nbsp;followers&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{following}}&nbsp;following</span>
-                        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{id}}
+                            style="display:inline">&nbsp;{{posts}}&nbsp;posts&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{followers}}&nbsp;followers&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{following}}&nbsp;following</span>
+
                         </p>
                     </div>
                 </div>
+                <!-- 파일 업로드 -->
+                <form action="/fileupload" method="POST" enctype="multipart/form-data">
+                    <input id="btn_upload" type="file" name="file" /><input type="submit" />
+                </form>
 
                 <div class="post-body">
-
                 </div>
             </div>
 
@@ -84,26 +91,11 @@
                     </div>
                 </div>
 
-                <!-- <div class="post-body">
-                    <div class="post-collection">
-                        <img src="static/image/Lu2.jpg" class="img-collection" onclick="window.open(this.src)" />
-                        <img src="static/image/Lu4.jpg" class="img-collection" onclick="window.open(this.src)" />
-                        <img src="static/image/Lu1.jpg" class="img-collection" onclick="window.open(this.src)" />
-                        <img src="static/image/Lu3.jpg" class="img-collection" onclick="window.open(this.src)" />
-                        <img src="static/image/Lu5.png" class="img-collection" onclick="window.open(this.src)" />
-                        <img src="static/image/Lu7.jpg" class="img-collection" onclick="window.open(this.src)" />
-                        <img src="static/image/Lu8.jpg" class="img-collection" onclick="window.open(this.src)" />
-                        <img src="static/image/Lu9.jpg" class="img-collection" onclick="window.open(this.src)" />
-                        <img src="static/image/Lu10.jpg" class="img-collection" onclick="window.open(this.src)" />
-                    </div>
-                </div> -->
-
-                <!-- forloop으로 할당된 값으로 내 프로필 구현 - 가능하면 나중에 이미지 업로드/ db에서 받아 jinja로 구현 예정 QQQ  -->
-
                 <div class='bigPictureWrapper'>
                     <div class='bigPicture'>
                     </div>
                 </div>
+
 
                 <div class="post-body">
                     <div class="post-collection" id="post-collection">
@@ -120,19 +112,6 @@
                 </div>
             </div>
         </div>
-
-
-
-        파일 업로드
-        <form action="/fileupload" method="POST" enctype="multipart/form-data">
-            <input type="file" name="file" />
-            <br><br>
-            <input type="submit" />
-            <input type="reset" />
-        </form>
-
-
-
     </div>
 
 </body>

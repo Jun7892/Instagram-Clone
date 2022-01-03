@@ -33,13 +33,13 @@
                 type: "POST",
                 url: "/api/register",
                 data: {
-                    // id="userid" "userpw" "usernick"
                     id_give: $('#userid').val(),
                     pw_give: $('#userpw').val(),
                     nickname_give: $('#usernick').val(),
                     posts_give: getRandomInt(9),
                     followers_give: getRandomInt(1000),
-                    following_give: getRandomInt(1000)
+                    following_give: getRandomInt(1000),
+                    image_give: 'static/image/Lu5.png'
                 },
                 success: function (response) {
                     if (response['result'] == 'success') {
@@ -52,13 +52,17 @@
             })
         }
 
+
     </script>
 </head>
+
+
 
 
 <body>
     <div class="container">
         <img class="logo_instagram" src="{{url_for('static', filename='image/insta-logo.png')}}" alt="instagram_logo">
+
         <input type="text" class="input_login" name="userid" id="userid" placeholder="전화번호, 사용자 이름 또는 이메일">
         <input type="password" class="input_login" name="userpw" id="userpw" placeholder="비밀번호">
         <input type="text" class="input_login" name="usernick" id="usernick" placeholder="닉네임">

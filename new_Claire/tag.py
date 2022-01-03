@@ -19,25 +19,22 @@ def extract_tags():
     tags = {}
     print(f'Scrapping tags...')
     result = requests.get(URL, headers=headers)
-    soup = BeautifulSoup(result.text,'lxml')
+    soup = BeautifulSoup(result.text,'html.parser')
     results = soup.find_all("table")[0]
     result = results.find_all("tr")
 
     for i in result:
         tag = i.select_one('td>a').string.strip('#')
         tag_per = i.select_one('td.text-right').get_text(strip=True)
-        # tags_all.append((tag, tag_per))
         tags[tag] = tag_per
 
-    # for tag in tags_all:
-    #     tags.append(tag[0])
-    print(tags)
+    # print(tags)
     
     doc = {"today":dt, "tags": tags}
     print(doc)
-    db.tags.insert_one(doc)     
+    # db.tags.insert_one(doc)
 
     return doc
 
-extract_tags()
+# extract_tags()
 # print(db.tags.find_one({'today':dt})['tags'])

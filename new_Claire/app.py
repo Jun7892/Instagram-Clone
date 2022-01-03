@@ -32,7 +32,7 @@ def home():
         # 암호화되어있는 token의 값을 우리가 사용할 수 있도록 디코딩(암호화 풀기)해줍니다!
         payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
         user_info = db.user.find_one({"id": payload['id']})
-        return render_template('main.html', nickname=user_info["nick"], id=user_info["id"])
+        return render_template('main.html', nickname=user_info["nick"], id=user_info["id"], file_src=user_info['image'])
     # 만약 해당 token의 로그인 시간이 만료되었다면, 아래와 같은 코드를 실행합니다.
     except jwt.ExpiredSignatureError:
         return redirect(url_for("login"))
@@ -62,7 +62,7 @@ def main():
     try:
         payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
         user_info = db.user.find_one({"id": payload['id']})
-        return render_template('main.html', nickname=user_info["nick"], id=user_info["id"], tags=tags)
+        return render_template('main.html', nickname=user_info["nick"], id=user_info["id"], tags=tags, file_src=user_info['image'])
     except jwt.ExpiredSignatureError:
         return redirect(url_for("login"))
     except jwt.exceptions.DecodeError:
@@ -77,7 +77,7 @@ def mypage():
         user_info = db.user.find_one({"id": payload['id']})
         return render_template('mypage.html', mytoken=token_receive, nickname=user_info["nick"], id=user_info["id"],
                                posts=user_info["posts"], followers=user_info["followers"],
-                               following=user_info["following"])
+                               following=user_info["following"], file_src=user_info['image'])
     except jwt.ExpiredSignatureError:
         return redirect(url_for("login", msg="로그인 시간이 만료되었습니다."))
     except jwt.exceptions.DecodeError:
@@ -102,30 +102,6 @@ def comment_get():
     comments_list = list(db.comments.find({}, {'_id': False}))
     return jsonify({'comments': comments_list})
 
-UPLOAD_FOLDER = 'Team-project/new_Claire/static/image/'
-ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
-
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024   # RequestEntityTooLarge if more than 16mb
-
-def allowed_file(filename):
-    return '.' in filename and \
-           filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
-
-@app.route('/fileupload', methods = ['GET', 'POST'])
-def save_file():
-    if request.method == 'POST':
-        if 'file' not in request.files:
-            flash('No file part')
-            return redirect(request.url)
-        file = request.files['file']
-        if file.filename == '':
-            flash('No selected file')
-            return redirect(request.url)
-        if file and allowed_file(file.filename):
-            filename = secure_filename(file.filename)
-            file.save(os.path.abspath(UPLOAD_FOLDER+filename))
-            return render_template('main.html', msg="업로드 되었습니다.")
 
 
 ######## ================ #######
@@ -146,11 +122,12 @@ def api_register():
     posts_receive = request.form['posts_give']
     followers_receive = request.form['followers_give']
     following_receive = request.form['following_give']
+    image_receive = request.form['image_give']
 
     pw_hash = hashlib.sha256(pw_receive.encode('utf-8')).hexdigest()
 
     db.user.insert_one({'id': id_receive, 'pw': pw_hash, 'nick': nickname_receive, 'posts': posts_receive,
-                        'followers': followers_receive, 'following': following_receive})
+                        'followers': followers_receive, 'following': following_receive, 'image': image_receive})
 
     return jsonify({'result': 'success'})
 
@@ -215,10 +192,6 @@ def api_valid():
     except jwt.exceptions.DecodeError:
         return jsonify({'result': 'fail', 'msg': '로그인 정보가 존재하지 않습니다.'})
 
-
-if __name__ == '__main__':
-    app.run('0.0.0.0', port=5000, debug=True)
-
 ####### image upload to folder #######
 UPLOAD_FOLDER = 'Team-project/new_Claire/static/image/'
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
@@ -233,16 +206,36 @@ def allowed_file(filename):
 
 
 @app.route('/fileupload', methods=['GET', 'POST'])
-def save_file():
-    if request.method == 'POST':
-        if 'file' not in request.files:
-            flash('No file part')
-            return redirect(request.url)
-        file = request.files['file']
-        if file.filename == '':
-            flash('No selected file')
-            return redirect(request.url)
-        if file and allowed_file(file.filename):
-            filename = secure_filename(file.filename)
-            file.save(os.path.abspath(UPLOAD_FOLDER + filename))
-            return render_template('main.html', msg="업로드 되었습니다.")
+def fileupload():
+    token_receive = request.cookies.get('mytoken')
+    try:
+        payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
+        user_info = db.user.find_one({"id": payload['id']})
+
+        if request.method == 'POST':
+            if 'file' not in request.files:
+                flash('No file part')
+                return redirect(request.url)
+            file = request.files['file']
+            if file.filename == '':
+                flash('No selected file')
+                return redirect(request.url)
+            if file and allowed_file(file.filename):
+                filename = secure_filename(file.filename)
+                print(UPLOAD_FOLDER + filename)
+                file.save(os.path.abspath(UPLOAD_FOLDER + filename))
+                a = '/static/image/' + filename
+                print(a)
+                # db.user.insert_one({'id':user_info['id'], 'image':a})
+                db.user.update_one({'id':user_info['id']},{'$set':{'image':a}})
+                return render_template('mypage.html', msg="업로드 되었습니다.", file_src=a)
+
+    except jwt.ExpiredSignatureError:
+        return redirect(url_for("login"))
+    except jwt.exceptions.DecodeError:
+        return redirect(url_for("login", msg="로그인 정보가 존재하지 않습니다."))
+
+
+
+if __name__ == '__main__':
+    app.run('0.0.0.0', port=5000, debug=True)

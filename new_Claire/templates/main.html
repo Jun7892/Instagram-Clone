@@ -55,8 +55,8 @@
         }
 
         function save_comment() {
-            // var comment = $('#input-comment').val()          // 참조 2
-            // var nick = get_user_nick()                       // 참조 1
+            // let comment = $('#input-comment').val()          // 참조 2
+            // let nick = get_user_nick()                       // 참조 1
             $.ajax({                                            // GET nick name
                 type: 'GET',
                 url: '/api/nick',
@@ -88,10 +88,11 @@
                 url: '/api/nick',
                 data: {},
                 success: function (response) {
-                    return response['nickname'];   // QQQ1.
+                    return response['nickname'];
                 }
             });
         }
+
     </script>
 </head>
 
@@ -109,7 +110,7 @@
                 <img src="static/image/dm.png" alt="DM">
                 <img src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/bearu/explore.png" alt="탐색">
                 <img src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/bearu/heart.png" alt="하트">
-                <img class="pic" src="static/image/Lu6.png" onclick='window.location.href = "/mypage"' alt="마이페이지">
+                <img class="pic" src="{{file_src}}" onclick='window.location.href = "/mypage"' alt="마이페이지">
             </div>
         </div>
     </nav>
@@ -254,8 +255,7 @@
         <!--                                                                                                           -->
         <div class="main-right">
             <div class="myProfile">
-                <img class="pic" src="static/image/Lu6.png" id="nav" onclick='window.location.href = "/mypage"'
-                    alt="마이페이지">
+                <img class="pic" src="{{file_src}}" id="nav" onclick='window.location.href = "/mypage"' alt="마이페이지">
                 <div>
                     <span class="userID point-span">{{nickname}}</span>
                     <!-- ID로 어떻게? -->
@@ -385,30 +385,26 @@
                 </ul>
             </div>
 
-
             <div class="section-story" style="margin-top: 20px;">
                 <div class="menu-title">
                     <span class="sub-title">오늘의 TOP 30 태그</span>
                     <span class="find-more">📍대한민국</span>
                 </div>
                 <ul class="story-list">
-                    {% set count = 1 %}
                     {% for i in tags %}
                     <li>
                         <div>
-                            <img class="img-profile story" src="static/image/ranking.png">
+                            <a href="https://www.instagram.com/explore/tags/{{i}}"><img class="img-profile story"
+                                    src="static/image/ranking.png"></a>
                         </div>
                         <div class="profile-text">
                             <span class="userID point-span">{{ i }}</span>
                             <span class="sub-span">{{tags[i]}}</span>
                         </div>
-
                     </li>
-
                     {% endfor %}
                 </ul>
             </div>
-
 
             <footer>
                 <p class="insta-sccript">
