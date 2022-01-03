@@ -74,6 +74,6 @@ Common : Git, Github, Slack, Notion
 - 유저 별명 넣은 맞춤 로그인/로그아웃 메세지
 - 회원가입시 유저 데이터에 게시글/팔로우/팔로잉 수 랜덤 지정
 
-## [Notion](https://www.notion.so/7-37980608eb054036a945d8dfb6c0b2d6)
+## [Notion](https://equatorial-mulberry-b8c.notion.site/7-37980608eb054036a945d8dfb6c0b2d6)
 
 ### 📌AWS EC2 업로드 / [Link](http://houuuuu.shop/)
