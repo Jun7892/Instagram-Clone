@@ -18,10 +18,6 @@
 
 - Front-end : 김유경, 이형주A
 - Back-end : 정혜원, 김석준, 최인호
-<p></p>
-- Front / Mainpage & Mypage
-<p></p>
-- Back / CRUD & DB & 로그인 & EC2
 
 ### ⚙ 적용기술 및 구현 기능 적용 기술
 
