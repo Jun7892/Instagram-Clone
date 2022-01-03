@@ -76,4 +76,4 @@ Common : Git, Github, Slack, Notion
 
 ## [Notion](https://www.notion.so/7-37980608eb054036a945d8dfb6c0b2d6)
 
-### 📌AWS EC2 업로드 / Link
+### 📌AWS EC2 업로드 / [Link](http://houuuuu.shop/)
