@@ -19,13 +19,6 @@
         alert("{{ msg }}")
         {% endif %}
 
-        function PopupExplain(param) {
-            var val = document.getElementById(param).outerHTML;
-            var explain = document.getElementById("explain");
-            var w = window.open("", "", "");
-            w.document.write(val);
-            w.document.close();
-        }
 
         // 로그아웃은 내가 가지고 있는 토큰만 쿠키에서 없애면 됩니다.
         function logout() {
@@ -34,29 +27,7 @@
             window.location.href = '/login'
         }
 
-        // function newTabClick() {
-        //     window.open('new-tab.html', '_blank');
-        // }
 
-        // 버튼 이용
-        // function newClick() {
-        //     window.open('this.src');
-        // }
-
-
-        // function closeClick() {
-        //     window.close();
-        // }
-
-        function closeClick() {
-            var new_page = window.open('this.src'); //새로운 창을 열때 사용한 코드
-            new_page.close(this.src); //new_page 변수명에 저장된 창을 닫음
-        }
-
-        /* move.js */
-        function move() {
-            location.href = "main.html";
-        }
 
 
     </script>
@@ -88,9 +59,12 @@
                     <div class="right-wrapper">
                         <img class="pfp" src="static/image/Lu6.png" align="left" vspace="10" hspace="10">
                         <span style="font-size:5px">&nbsp;</span>
-                        <span
-                            style="font-size:30px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{nickname}}</span>
+                        <div class="profileedit">
+                            <span style="font-size:30px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{nickname}}</span>
+                            <button type="button" class="edit">profile edit</button>
+                        </div>
                         <span style="font-size:10px">&nbsp;</span>
+
                         <span
                             style="display:inline">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{posts}}&nbsp;posts&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{followers}}&nbsp;followers&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{following}}&nbsp;following</span>
                         <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{id}}
@@ -148,13 +122,14 @@
         </div>
 
 
-        <!--  파일 업로드
+
+        파일 업로드
         <form action="/fileupload" method="POST" enctype="multipart/form-data">
             <input type="file" name="file" />
             <br><br>
             <input type="submit" />
             <input type="reset" />
-        </form> -->
+        </form>
 
 
 

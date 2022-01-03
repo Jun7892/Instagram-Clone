@@ -40,12 +40,6 @@ def home():
         # 만약 해당 token이 올바르게 디코딩되지 않는다면, 아래와 같은 코드를 실행합니다.
         return redirect(url_for("login", msg="로그인 정보가 존재하지 않습니다."))
 
-# @app.route('/tags', methods=['GET'])
-# def tags():
-#     today = datetime.datetime.today()       # prevent mongodb error (date.today())
-#     dt = datetime.datetime(today.year, today.month, today.day) 
-#     tags = db.tags.find_one({'today':dt})
-#     return jsonify({'tags':tags})
 
 @app.route('/login')
 def login():
