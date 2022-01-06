@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/common.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/mypage.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='js/login.js') }}">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+    <title>Lupistagram</title>
+    <style>
+        input[type="file"] {
+            display: none;
+        }
+
+        #btn_upload {
+            border: 1px solid #ccc;
+            display: inline-block;
+            padding: 6px 12px;
+            cursor: pointer;
+        }
+    </style>
+    <script>
+
+        {% if msg %}
+        alert("{{ msg }}")
+        window.location.href = '/mypage'
+        {% endif %}
+
+        function logout() {
+            $.removeCookie('mytoken');
+            alert('{{ nickname }}님 안녕히 가세요 🥲')
+            window.location.href = '/login'
+        }
+
+    </script>
+</head>
+
+<body>
+    <div>
+        <nav>
+            <div class="nav-container">
+                <div class="nav-1">
+                    <img class="logo_instagram_txt" src="{{ url_for('static', filename='image/logo_text.png') }}"
+                        onclick='window.location.href = "/main"' alt="logo_text">
+                </div>
+                <input id="searchInput" type="search" class="input-search" placeholder="검색">
+                <div class="nav-2" id="nav">
+                    <img src="static/image/home.png" onclick='window.location.href = "/main"' alt="홈">
+                    <img src="static/image/dm.png" alt="DM">
+                    <img src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/bearu/explore.png" alt="탐색">
+                    <img src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/bearu/heart.png" alt="하트">
+                    <img class="pic" src="static/image/Lu6.png" onclick="logout()">
+                </div>
+            </div>
+        </nav>
+
+        <div id="post-container">
+            <div class="post-wrapper">
+                <div class="post-header">
+                    <div class="right-wrapper">
+                        <img class="pfp" src="{{file_src}}" align="left">
+                        <span style="font-size:30px; margin-top:5px">{{nickname}} <div
+                                style="font-size:25px; margin-top:5px">{{id}}
+                            </div> </span>
+                        <span
+                            style="display:inline">&nbsp;{{posts}}&nbsp;posts&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{followers}}&nbsp;followers&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{following}}&nbsp;following</span>
+
+                        </p>
+                    </div>
+                </div>
+                <!-- 파일 업로드 -->
+                <form action="/fileupload" method="POST" enctype="multipart/form-data">
+                    <input id="btn_upload" type="file" name="file" /><input type="submit" />
+                </form>
+
+                <div class="post-body">
+                </div>
+            </div>
+
+            <div class="post-wrapper">
+                <div class="post-header">
+                    <div class="post-menu">
+                        Posts&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Videos&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Reels&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tagged
+                    </div>
+                </div>
+
+                <div class='bigPictureWrapper'>
+                    <div class='bigPicture'>
+                    </div>
+                </div>
+
+
+                <div class="post-body">
+                    <div class="post-collection" id="post-collection">
+                        <img src="static/image/Lu2.jpg" class="img-collection" style="width: 300px; height: 300px;" />
+                        <img src="static/image/Lu4.jpg" class="img-collection" style="width: 300px; height: 300px;" />
+                        <img src="static/image/Lu1.jpg" class="img-collection" style="width: 300px; height: 300px;" />
+                        <img src="static/image/Lu3.jpg" class="img-collection" style="width: 300px; height: 300px;" />
+                        <img src="static/image/Lu5.png" class="img-collection" style="width: 300px; height: 300px;" />
+                        <img src="static/image/Lu7.jpg" class="img-collection" style="width: 300px; height: 300px;" />
+                        <img src="static/image/Lu8.jpg" class="img-collection" style="width: 300px; height: 300px;" />
+                        <img src="static/image/Lu9.jpg" class="img-collection" style="width: 300px; height: 300px;" />
+                        <img src="static/image/Lu10.jpg" class="img-collection" style="width: 300px; height: 300px;" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+<script>
+
+    $(document).ready(function (e) {
+
+        $(".post-collection").on("click", "img", function () {
+            var path = $(this).attr('src')
+            showImage(path);
+        });//end click event
+
+        function showImage(fileCallPath) {
+
+            $(".bigPictureWrapper").css("display", "flex").show();
+
+            $(".bigPicture")
+                .html("<img src='" + fileCallPath + "' >")
+                .animate({ width: '100%', height: '100%' }, 200);
+
+        }//end fileCallPath
+
+        $(".bigPictureWrapper").on("click", function (e) {
+            $(".bigPicture").animate({ width: '0%', height: '0%' }, 250);
+            setTimeout(function () {
+                $('.bigPictureWrapper').hide();
+            }, 250);
+        });//end bigWrapperClick event
+    });
+
+</script>
+
+</html>

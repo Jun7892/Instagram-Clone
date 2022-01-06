@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <title>Lupistagram</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/common.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+
+    <link rel="icon" href="{{ url_for('static', filename='image/favicon.png') }}">
+    <link rel="instagram-icon" onclick='window.location.href = "/register"'
+        href="{{ url_for('static', filename='image/insta-logo.png') }}">
+    <script>
+        {% if msg %}
+        alert("{{ msg }}")
+        {% endif %}
+
+        $(document).ready(function () {
+            show_comment();
+        });
+        function show_comment() {
+            $.ajax({
+                type: 'GET',
+                url: '/comment',
+                data: {},
+                success: function (response) {
+                    let rows = response['comments']
+                    for (let i = 0; i < rows.length; i++) {
+                        let nick = rows[i]['nick']
+                        let num = rows[i]['num']
+                        let comment = rows[i]['comment']
+
+                        let temp_html = `<li>
+                                <span><span class="point-span userID">${nick}</span>${comment}</span>
+                                <div>
+                                    <img onclick="delete_comment(${num})" class="comment-more"
+                                        src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/bearu/more.png"
+                                        alt="more">
+                                    <div class="comment-like">
+                                        <img class="comment-heart"
+                                            src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/bearu/heart.png"
+                                            alt="하트">
+                                        <img class="comment-heart-liked" src="static/image/liked.png" alt="좋아요된하트">
+                                    </div>
+                                </div>
+                            </li>`
+                        $('#post-comments-here').append(temp_html)
+                    }
+                }
+            });
+        }
+
+        function save_comment() {
+            let nick = '{{nickname}}'
+            let id = '{{id}}'
+            let comment = $('#input-comment2').val()
+            $.ajax({
+                type: 'POST',
+                url: '/comment',
+                data: { nickname_give: nick, comment_give: comment, id_give: id },
+                fail: function (response) {
+                    alert(response['msg']);
+                },
+                success: function (response) {
+                    alert(response['msg'])
+                    window.location.reload()
+                }
+            });
+        }
+
+        function delete_comment(num) {
+            let id = '{{id}}'
+            $.ajax({
+                type: "POST",
+                url: "/comment/delete",
+                data: { id_give: id, num_give: num },
+                fail: function (response) {
+                    alert(response['msg']);
+                },
+                success: function (response) {
+                    alert(response['msg'])
+                    window.location.reload()
+                }
+            });
+        }
+
+    </script>
+</head>
+
+<body>
+    <!-- navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="nav-1">
+                <img class="logo_instagram_txt" src="{{ url_for('static', filename='image/logo_text.png') }}"
+                    onclick='window.location.href = "/main"' alt="logo_text">
+            </div>
+            <input id="searchInput" type="search" class="input-search" placeholder="검색">
+            <div class="nav-2" id="nav">
+                <img src="static/image/home.png" onclick='window.location.href = "/main"' alt="홈">
+                <img src="static/image/dm.png" alt="DM">
+                <img src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/bearu/explore.png" alt="탐색">
+                <img src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/bearu/heart.png" alt="하트">
+                <img class="pic" src="{{file_src | default('static/image/Lu6.jpg') }}"
+                    onclick='window.location.href = "/mypage"' alt="마이페이지">
+            </div>
+        </div>
+    </nav>
+    <!-- main -->
+    <main>
+        <div class="feeds" id="tag-attach-here">
+
+            <article>
+                <header>
+                    <div class="profile-of-article">
+                        <img class="img-profile pic" src="static/image/Lu2.jpg" alt="youngthuglife님의 프로필 사진">
+                        <span class="userID main-id point-span">youngthuglife</span>
+                    </div>
+                    <img class="icon-react icon-more"
+                        src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/bearu/more.png" alt="more">
+                </header>
+                <div class="main-image">
+                    <img src="static/image/Lu2.jpg" alt="Lupi님의 피드 사진" class="mainPic">
+                </div>
+                <div class="icons-react">
+                    <div class="icons-left">
+
+                        <img class="icon-react" id="none"
+                            src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/bearu/heart.png"
+                            onclick="like()" alt="하트">
+
+                        <img class="icon-react"
+                            src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/bearu/comment.png" alt="말풍선">
+                        <img class="icon-react" src="{{url_for('static', filename='image/dm.png')}}" alt="DM">
+                    </div>
+
+
+
+                    <img class="icon-react"
+                        src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/bearu/bookmark.png" alt="북마크">
+                </div>
+                <!-- article text data -->
+                <div class="reaction">
+                    <div class="liked-people">
+                        <img class="pic" src="static/image/Lu2.jpg" alt="johnnyjsuh님의 프로필 사진">
+                        <p><span class="point-span">구황작물_king</span>님 <span class="point-span">외 2,412,751명</span>이
+                            좋아합니다</p>
+                    </div>
+                    <div class="description">
+                        <p><span class="point-span userID">구황작물_king</span><span class="at-tag">#수수 #ootd</span> 🙋‍♂️
+                        </p>
+                    </div>
+                    <div class="comment-section">
+                        <ul class="comments">
+                            <li>
+                                <span><span class="point-span userID">postmalone</span>내가 입으면 더 잘어울릴 것 같아</span>
+                                <div>
+                                    <img class="comment-more"
+                                        src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/bearu/more.png"
+                                        alt="more">
+                                    <div class="comment-like">
+                                        <img class="comment-heart"
+                                            src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/bearu/heart.png"
+                                            alt="하트" id="heart1">
+
+                                        <img class="comment-heart-liked" src="static/image/liked.png" alt="좋아요된하트">
+                                    </div>
+                                </div>
+                            </li>
+                            <!-- input 값 여기에 추가 -->
+                        </ul>
+                        <div class="time-log">
+                            <span>32분 전</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="hl"></div>
+                <div class="comment">
+                    <input id="input-comment" class="input-comment" type="text" placeholder="댓글 달기...">
+                    <button type="submit" class="submit-comment" disabled>게시</button>
+                </div>
+            </article>
+
+            <article>
+                <header>
+                    <div class="profile-of-article">
+                        <img class="img-profile pic" src="static/image/Lu4.jpg" alt="어쩔티비님의 프로필 사진">
+                        <span class="userID main-id point-span">어쩔티비</span>
+                    </div>
+                    <img class="icon-react icon-more"
+                        src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/bearu/more.png" alt="more">
+                </header>
+                <div class="main-image">
+                    <img src="static/image/Lu4.jpg" alt="어쩔티비님의 피드 사진" class="mainPic">
+                </div>
+                <div class="icons-react">
+                    <div class="icons-left">
+                        <img class="icon-react"
+                            src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/bearu/heart.png" alt="하트">
+                        <img class="icon-react"
+                            src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/bearu/comment.png" alt="말풍선">
+                        <img class="icon-react" src="static/image/dm.png" alt="DM">
+                    </div>
+                    <img class="icon-react"
+                        src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/bearu/bookmark.png" alt="북마크">
+                </div>
+                <!-- article text data -->
+                <div class="reaction">
+                    <div class="liked-people">
+                        <img class="pic" src="static/image/Lu5.jpg" alt="shshsha님의 프로필 사진">
+                        <p><span class="point-span">어쩔티비</span>님 <span class="point-span">외 4,612,203명</span>이
+                            좋아합니다</p>
+                    </div>
+                    <div class="description">
+                        <p><span class="point-span userID">7조다</span>오늘은 옥수수 캐러감</p>
+                    </div>
+                    <div class="comment-section">
+                        <ul class="comments" id="post-comments-here">
+                            <li>
+                                <span><span class="point-span userID">claire-says._.</span>나는 감자.</span>
+                                <div>
+                                    <img class="comment-more"
+                                        src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/bearu/more.png"
+                                        alt="more">
+                                    <div class="comment-like">
+                                        <img class="comment-heart"
+                                            src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/bearu/heart.png"
+                                            alt="하트">
+                                        <img class="comment-heart-liked" src="static/image/liked.png" alt="좋아요된하트">
+                                    </div>
+                                </div>
+                            </li>
+                            <!-- input 값 여기에 추가 -->
+                        </ul>
+                        <div class="time-log">
+                            <span>1시간 전</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="hl"></div>
+                <div class="comment">
+                    <input id="input-comment2" class="input-comment" type="text" placeholder="댓글 달기...">
+                    <button id="submit-comment2" class="submit-comment" type="submit" onclick="save_comment()"
+                        disabled>게시</button>
+                </div>
+            </article>
+        </div>
+        <!--                                                                                                           -->
+        <!--                                           << story section >>                                             -->
+        <!--                                                                                                           -->
+        <div class="main-right">
+            <div class="myProfile">
+                <img class="pic" src="{{file_src}}" id="nav" onclick='window.location.href = "/mypage"' alt="마이페이지">
+                <div>
+                    <span class="userID point-span">{{nickname}}</span>
+                    <!-- ID로 어떻게? -->
+                    <span class="sub-span">{{id}}</span>
+                </div>
+            </div>
+            <div class="section-story">
+                <div class="menu-title">
+                    <span class="sub-title">스토리</span>
+                    <span class="find-more">모두 보기</span>
+                </div>
+                <ul class="story-list">
+                    <li>
+                        <div class="gradient-wrap">
+                            <img class="img-profile story" src="static/image/Lu1.jpg" alt="star_wars님의 프로필 사진">
+
+                            <script> // css내 백그라운드 색 변경 -> id 달 필요 없음!
+                                $("img").click(function () {
+                                    $(this).parent().css('background', 'transparent');
+                                });
+                            </script>
+
+                        </div>
+                        <div class="profile-text">
+                            <span class="userID point-span">star_wars</span>
+                            <span class="sub-span">7분 전</span>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="gradient-wrap">
+                            <img class="img-profile story" src="static/image/Lu4.jpg" alt="oh_my__life님의 프로필 사진">
+
+                            <script> // parent tag인 div불러와서 css내 백그라운드 색 변경 
+                                $("img").click(function () {
+                                    $(this).parent().css('background', 'transparent');
+                                });
+                            </script>
+
+
+                        </div>
+                        <div class="profile-text">
+                            <span class="userID point-span">oh_my__life</span>
+                            <span class="sub-span">28분 전</span>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="gradient-wrap">
+                            <img class="img-profile story" src="static/image/Lu2.jpg" alt="dntlrdl님의 프로필 사진">
+                            <script> // css내 백그라운드 색 변경 
+                                $("img").click(function () {
+                                    $(this).parent().css('background', 'transparent');
+                                });
+                            </script>
+                        </div>
+
+                        <div class="profile-text">
+                            <span class="userID point-span">dntlrdl</span>
+                            <span class="sub-span">33분 전</span>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="gradient-wrap">
+                            <img class="img-profile story" src="static/image/Lu4.jpg" alt="toogoodtobetrue님의 프로필 사진">
+                            <script> // css내 백그라운드 색 변경 
+                                $("img").click(function () {
+                                    $(this).parent().css('background', 'transparent');
+                                });
+                            </script>
+                        </div>
+                        <div class="profile-text">
+                            <span class="userID point-span">toogoodtobetrue</span>
+                            <span class="sub-span">52분 전</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <!-- recommendation section -->
+            <div class="section-recommend">
+                <div class="menu-title">
+                    <span class="sub-title">회원님을 위한 추천</span>
+                    <span class="find-more">모두 보기</span>
+                </div>
+                <ul class="recommend-list">
+                    <li>
+                        <div class="recommend-friend-profile">
+                            <img class="img-profile" src="static/image/okk2.jpg" alt="renebaebae님의 프로필 사진">
+                            <div class="profile-text">
+                                <span class="userID point-span">옥수수</span>
+                                <span class="sub-span">johnnyjsuh님 외 2명이 팔로우합니다</span>
+                            </div>
+                        </div>
+                        <span class="btn-follow">팔로우</span>
+                    </li>
+                    <li>
+                        <div class="recommend-friend-profile">
+                            <img class="img-profile" src="static/image/Lu4.jpg" alt="어쩔티비님의 프로필 사진">
+                            <div class="profile-text">
+                                <span class="userID point-span">어쩔티비</span>
+                                <span class="sub-span">Jam_mini님 외 5명이 팔로우합...</span>
+                            </div>
+                        </div>
+                        <span class="btn-follow">팔로우</span>
+
+                    </li>
+                    <script> // css내 색 변경 및 팔로우-> 요청됨으로 텍스트 변경 -> id 달 필요 없음!
+                        $(".btn-follow").click(function () {
+                            $(this).css('color', '#303335');
+                            $(this).text('요청됨');
+                        });
+
+                    </script>
+                    <li>
+                        <div class="recommend-friend-profile">
+                            <img class="img-profile" src="static/image/gamja_crop.jpg" alt="감자님의 프로필 사진">
+                            <div class="profile-text">
+                                <span class="userID point-span">감자king</span>
+                                <span class="sub-span">구황작물님이 팔로우합니다</span>
+                            </div>
+                        </div>
+                        <span class="btn-follow gamja">팔로우</span>
+                        <script>
+                            $(".gamja").click(function () {
+                                alert('이런..어쩌나,,감자king님이 팔로우를 거절하였습니다. 🤭')
+                            });
+                        </script>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="section-story" style="margin-top: 20px;">
+                <div class="menu-title">
+                    <span class="sub-title">오늘의 TOP 30 태그</span>
+                    <span class="find-more">📍대한민국</span>
+                </div>
+                <ul class="story-list">
+                    {% for i in tags %}
+                    <li>
+                        <div>
+                            <a href="https://www.instagram.com/explore/tags/{{i}}"><img class="img-profile story"
+                                    src="static/image/ranking.png"></a>
+                        </div>
+                        <div class="profile-text">
+                            <span class="userID point-span">{{ i }}</span>
+                            <span class="sub-span">{{tags[i]}}</span>
+                        </div>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <footer>
+                <p class="insta-sccript">
+                    소개 ∙ 도움말 ∙ 홍보 센터 ∙ API ∙ 채용 정보 ∙ 개인정보처리방침 ∙ <br>약관 ∙ 위치 ∙ 인기계정 ∙ 해시태그 ∙ 언어
+                    <br><br>
+                    © 2021 INSTAGRAM FROM FACEBOOK
+                </p>
+            </footer>
+        </div>
+    </main>
+    <script src="{{url_for('static', filename='js/main.js')}}"></script>
+
+</body>
+
+</html>
