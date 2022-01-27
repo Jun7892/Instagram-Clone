@@ -1,5 +1,5 @@
 <p align="center">
- <img src="https://cdn5.vectorstock.com/i/1000x1000/31/89/34-3-4-number-logo-design-with-a-creative-cut-vector-29583189.jpg" width="450" height="400" />
+ <img src="https://item.kakaocdn.net/do/2d29be4d091e1d4d5f83c81cb1cec9414022de826f725e10df604bf1b9725cfd" width="450" height="400" />
 </p>
 
 # 7조(구황작물) 프로젝트 - Instagram
